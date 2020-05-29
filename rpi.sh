@@ -51,16 +51,15 @@ echo -e "\n --- [TASK] Configuring networking and wifi..."
 	netpass="H3nrB1wan9n3t"
 	sudo apt install net-tools wireless-tools wpasupplicant -y
 	sudo ifconfig wlan0 up
-	wpa_passphrase "$network" "$netpass" | tee wpa_supplicant.conf &> /dev/null
-	echo "country=US" >> wpa_supplicant.conf
-	
-	
+	wpa_passphrase "$network" "$netpass" | tee wpa_supplicant.conf &> /dev/null	
 	# echo "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev" >> wpa_supplicant.conf
 	# echo "update_config=1" >> wpa_supplicant.conf
 	# echo "country=US" >> wpa_supplicant.conf
 	# echo -e "network=\n{\nssid=\"ATT3tf4ur4\"\npsk=\"H3nrB1wan9n3t\"\n}" >> wpa_supplicant.conf
 	sudo mv -f wpa_supplicant.conf /etc/wpa_supplicant.conf
-	sudo wpa_supplicant -c /etc/wpa_supplicant.conf -i wlan0
+	sudo wpa_supplicant -B -c /etc/wpa_supplicant.conf -i wlan0
+	sudo dhclient wlan0
+	sudo cp /lib/systemd/system/wpa_supplicant.service /etc/systemd/system/wpa_supplicant.service
 echo -e " --- [OK]\n"
 
 
