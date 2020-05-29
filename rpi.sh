@@ -50,7 +50,7 @@ echo -e "\n --- [TASK] Configuring networking and wifi..."
 	network="ATT3tf4ur4"
 	netpass="H3nrB1wan9n3t"
 	sudo apt install net-tools wireless-tools wpasupplicant -y
-	sudod ifconfig wlan0 up
+	sudo ifconfig wlan0 up
 	wpa_passphrase "$network" "$netpass" | tee wpa_supplicant.conf &> /dev/null
 	echo "country=US" >> wpa_supplicant.conf
 	
