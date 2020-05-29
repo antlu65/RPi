@@ -4,19 +4,6 @@ echo -e "\n ***** [BEGIN] Setting up Raspberry Pi..."
 
 
 ### SETUP
-# hostname
-echo -e "\n --- [TASK] Configuring hostname..."
-	hostname=$(sed -n 1p /etc/hostname)
-	# incase we previously added hostname to 'hosts' file, remove it first.
-	# save copy of 'hosts' file for us to edit.
-	sed "1s/$hostname//" /etc/hosts > hosts
-	#sed '1s/'$hostname'/ /' /etc/hosts > hosts
-	# append hostname to end of first line
-	newline="$(sed -n 1p hosts) $hostname"
-	newcommand="1c\\$newline"
-	sed "$newcommand" /etc/hosts > hosts
-	sudo mv -f hosts /etc/hosts
-echo -e " --- [OK]\n"
 # timezone, keyboard, ssh
 echo -e "\n --- [TASK] Configuring timezone..."
 	sudo rm -f /etc/localtime
@@ -67,10 +54,15 @@ echo -e " --- [OK]\n"
 # networking/wifi
 echo -e "\n --- [TASK] Configuring networking..."
 	sudo apt install net-tools wireless-tools wpasupplicant -y
-	npconfig=./ubuntu/50-cloud-init.yaml
-	sudo mv -f $npconfig /etc/netplan/50-cloud-init.yaml
-	sudo netplan --debug generate
-	sudo netplan --debug apply
+	network="ATT3tf4ur4"
+	netpass="H3nrB1wan9n3t"
+	#sudo ifconfig wlan0 up
+	wpa_passphrase "$network" "$netpass" | tee wpa_supplicant.conf &> /dev/null	
+	# echo "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev" >> wpa_supplicant.conf
+	# echo "update_config=1" >> wpa_supplicant.conf
+	# echo "country=US" >> wpa_supplicant.conf
+	# echo -e "network=\n{\nssid=\"ATT3tf4ur4\"\npsk=\"H3nrB1wan9n3t\"\n}" >> wpa_supplicant.conf
+	sudo mv -f wpa_supplicant.conf /etc/wpa_supplicant.conf
 echo -e " --- [OK]\n"
 
 
