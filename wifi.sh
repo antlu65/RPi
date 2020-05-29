@@ -24,7 +24,7 @@ echo -e "\n --- [TASK] Configuring timezone..."
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring keyboard..."
 	kbconfig=/shared/keyboard
-	sudo mv -f keyboard /etc/default/keyboard
+	sudo mv -f ./shared/keyboard /etc/default/keyboard
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring ssh..."
 	sudo systemctl enable ssh
@@ -43,7 +43,7 @@ echo -e " --- [OK]\n"
 # networking/wifi
 echo -e "\n --- [TASK] Configuring networking..."
 	sudo apt install net-tools wireless-tools wpasupplicant -y
-	sudo mv -f /RPi/ubuntu/50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml
+	sudo mv -f ./ubuntu/50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml
 	sudo netplan generate
 	sudo netplan apply
 echo -e " --- [OK]\n"
