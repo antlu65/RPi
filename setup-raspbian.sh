@@ -73,6 +73,6 @@ echo -e "\n --- [TASK] Cleaning up..."
 	sudo apt autoremove -y
 echo -e " --- [OK]\n"
 echo -e " ----- [END] Raspberry Pi setup complete. Rebooting..."
-sleep 5
+sleep 8
 sudo reboot
 ### END.
