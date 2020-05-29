@@ -44,8 +44,8 @@ echo -e "\n --- [TASK] Configuring networking..."
 	sudo apt install net-tools wireless-tools wpasupplicant -y
 	npconfig=./ubuntu/50-cloud-init.yaml
 	sudo mv -f $npconfig /etc/netplan/50-cloud-init.yaml
-	sudo netplan generate
-	sudo netplan apply
+	sudo netplan --debug generate
+	sudo netplan --debug apply
 echo -e " --- [OK]\n"
 
 
