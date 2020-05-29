@@ -3,18 +3,19 @@ echo -e "\n ***** [BEGIN] Setting up Raspberry Pi..."
 cd ~
 
 ### SETUP
+# hostname
 echo -e "\n --- [TASK] Configuring hostname..."
 	hostname=$(sed -n 1p /etc/hostname)
 	# incase we previously added hostname to 'hosts' file, remove it first.
 	# save copy of 'hosts' file for us to edit.
-	sed '1s/'$hostname'/ /' /etc/hosts > hosts
-	oldline=$(sed -n 1p hosts)
+	sed "1s/$hostname//" /etc/hosts > hosts
+	#sed '1s/'$hostname'/ /' /etc/hosts > hosts
 	# append hostname to end of first line
-	echo $(sed -n 1p hosts)' '$hostname > hosts
-	sed '1r hosts' /etc/hosts > hosts
+	newline="$(sed -n 1p hosts) $hostname"
+	newcommand="1c\\$newline"
+	sed "$newcommand" /etc/hosts > hosts
+	#sed '1r hosts' /etc/hosts > hosts
 	sudo mv -f hosts /etc/hosts
-	
-	
 echo -e " --- [OK]\n"
 
 # timezone, keyboard, ssh
