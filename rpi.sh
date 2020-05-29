@@ -7,9 +7,9 @@ cd ~
 echo -e "\n[TASK] Updating and upgrading packages..."
 # update+upgrade existing packages.
 	sudo killall apt -q
-	sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock* -q
+	sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock* 2> /dev/null
 	sudo dpkg --configure -a
-	sudo apt update upgrade -y
+	sudo apt update upgrade -y 2> /dev/null
 echo -e "[OK]\n"
 
 
@@ -48,7 +48,7 @@ echo -e "\n[START] Configuring wifi...\n"
 	echo -e "network=\n{\nssid=\"ATT3tf4ur4\"\npsk=\"H3nrB1wan9n3t\"\n}" >> wpa_supplicant.conf
 	sudo mv -f wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
 	ifconfig wlan0 up
-	sudo dhclient wlan0
+	#sudo dhclient wlan0
 echo -e "[OK]\n"
 
 
@@ -88,3 +88,4 @@ echo -e "[OK]\n"
 
 ### END.
 echo -e "[END] All done!\n"
+echo -e "#################"
