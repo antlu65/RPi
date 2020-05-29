@@ -14,7 +14,6 @@ echo -e "\n --- [TASK] Configuring hostname..."
 	newline="$(sed -n 1p hosts) $hostname"
 	newcommand="1c\\$newline"
 	sed "$newcommand" /etc/hosts > hosts
-	#sed '1r hosts' /etc/hosts > hosts
 	sudo mv -f hosts /etc/hosts
 echo -e " --- [OK]\n"
 
@@ -48,14 +47,20 @@ echo -e " --- [OK]\n"
 
 # networking/wifi
 echo -e "\n --- [TASK] Configuring networking and wifi..."
-	sudo apt install net-tools wireless-tools -y
-	touch wpa_supplicant.conf
-	echo "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev" >> wpa_supplicant.conf
-	echo "update_config=1" >> wpa_supplicant.conf
+	network="ATT3tf4ur4"
+	netpass="H3nrB1wan9n3t"
+	sudo apt install net-tools wireless-tools wpasupplicant -y
+	sudod ifconfig wlan0 up
+	wpa_passphrase "$network" "$netpass" | tee wpa_supplicant.conf &> /dev/null
 	echo "country=US" >> wpa_supplicant.conf
-	echo -e "network=\n{\nssid=\"ATT3tf4ur4\"\npsk=\"H3nrB1wan9n3t\"\n}" >> wpa_supplicant.conf
-	sudo mv -f wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
-	ifconfig wlan0 up
+	
+	
+	# echo "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev" >> wpa_supplicant.conf
+	# echo "update_config=1" >> wpa_supplicant.conf
+	# echo "country=US" >> wpa_supplicant.conf
+	# echo -e "network=\n{\nssid=\"ATT3tf4ur4\"\npsk=\"H3nrB1wan9n3t\"\n}" >> wpa_supplicant.conf
+	sudo mv -f wpa_supplicant.conf /etc/wpa_supplicant.conf
+	sudo wpa_supplicant -c /etc/wpa_supplicant.conf -i wlan0
 echo -e " --- [OK]\n"
 
 
