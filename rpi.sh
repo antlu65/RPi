@@ -3,20 +3,20 @@ echo -e "\n***** RASPBERRY PI CONFIGURATOR SCRIPT *****"
 cd ~
 
 ### SETUP
-echo -e "\n[TASK] Updating and upgrading packages..."
+echo -e "\n --- [TASK] Updating and upgrading packages..."
 # update+upgrade existing packages.
 	sudo killall apt -q
 	sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock* 2> /dev/null
 	sudo dpkg --configure -a
 	sudo apt update
 	sudo apt upgrade -y
-echo -e "[OK]\n"
+echo -e " --- [OK]\n"
 
 
 
 ### USER SETTINGS
 # config timezone.
-echo -e "\n[TASK] Configuring timezone, keyboard..."
+echo -e "\n --- [TASK] Configuring timezone, keyboard..."
 	sudo rm -f /etc/localtime
 	sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 # config keyboard layout.
@@ -27,20 +27,20 @@ echo -e "\n[TASK] Configuring timezone, keyboard..."
 	echo -e "XKBOPTIONS=\"\"" >> keyboard
 	echo -e "\nBACKSPACE=\"guess\"" >> keyboard
 	sudo mv -f keyboard /etc/default/keyboard
-echo -e "[OK]\n"
+echo -e " --- [OK]\n"
 
 
 
 ### NETWORK/INTERFACING
 # config ssh.
-echo -e "\n[TASK] Configuring ssh...\n"
+echo -e "\n --- [TASK] Configuring ssh..."
 	sudo systemctl enable ssh
 	sudo systemctl start ssh
 echo -e "[OK]\n"
 # install net-tools, wireless-tools
 	sudo apt install net-tools wireless-tools -y
 # config wifi.
-echo -e "\n[TASK] Configuring wifi...\n"
+echo -e "\n --- [TASK] Configuring wifi..."
 	touch wpa_supplicant.conf
 	echo "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev" >> wpa_supplicant.conf
 	echo "update_config=1" >> wpa_supplicant.conf
@@ -48,13 +48,12 @@ echo -e "\n[TASK] Configuring wifi...\n"
 	echo -e "network=\n{\nssid=\"ATT3tf4ur4\"\npsk=\"H3nrB1wan9n3t\"\n}" >> wpa_supplicant.conf
 	sudo mv -f wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant.conf
 	ifconfig wlan0 up
-	#sudo dhclient wlan0
-echo -e "[OK]\n"
+echo -e " --- [OK]\n"
 
 
 
 ### .NET CORE RUNTIMES
-echo -e "\n[TASK] Installing .NET Core runtimes..."
+echo -e "\n --- [TASK] Installing .NET Core runtimes..."
 # install dependencies.
 	sudo apt install libunwind8 gettext -y
 # install dotnet_3.1.4.
@@ -73,12 +72,12 @@ echo -e "\n[TASK] Installing .NET Core runtimes..."
 	sha512sum -c dotnet_5.tar.gz.sha512
 	rm dotnet_5.tar.gz.sha512
 	sudo tar zxf dotnet_5.tar.gz -C /opt/dotnet
-echo -e "[OK]\n"
+echo -e " --- [OK]\n"
 
 
 
 ### CLEANUP
-echo -e "\n[TASK] Cleaning up..."
+echo -e "\n --- [TASK] Cleaning up..."
 # remove unnecessary packages.
 	sudo apt remove raspi-config -y &> /dev/null
 	sudo apt autoremove -y
@@ -87,4 +86,4 @@ echo -e "[OK]\n"
 
 
 ### END.
-echo -e "[END] All done!\n"
+echo -e " --- [END] All done!\n"
