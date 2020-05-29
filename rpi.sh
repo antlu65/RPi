@@ -34,7 +34,7 @@ echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring ssh..."
 	sudo systemctl enable ssh
 	sudo systemctl start ssh
-echo -e "[OK]\n"
+echo -e " --- [OK]\n"
 
 # update/upgrade default software
 echo -e "\n --- [TASK] Updating and upgrading default software..."
@@ -86,7 +86,7 @@ echo -e "\n --- [TASK] Cleaning up..."
 # remove unnecessary packages.
 	sudo apt remove raspi-config -y &> /dev/null
 	sudo apt autoremove -y
-echo -e "[OK]\n"
+echo -e " --- [OK]\n"
 
 
 
