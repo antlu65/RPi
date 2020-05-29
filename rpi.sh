@@ -1,6 +1,5 @@
 #!/bin/bash
 echo -e "\n***** RASPBERRY PI CONFIGURATOR SCRIPT *****"
-echo -e "\n[BEGIN] Let's begin!"
 cd ~
 
 ### SETUP
@@ -9,14 +8,15 @@ echo -e "\n[TASK] Updating and upgrading packages..."
 	sudo killall apt -q
 	sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock* 2> /dev/null
 	sudo dpkg --configure -a
-	sudo apt update upgrade -y 2> /dev/null
+	sudo apt update
+	sudo apt upgrade -y
 echo -e "[OK]\n"
 
 
 
 ### USER SETTINGS
 # config timezone.
-echo -e "\n[TASK] Configuring timezone, keyboard...\n"
+echo -e "\n[TASK] Configuring timezone, keyboard..."
 	sudo rm -f /etc/localtime
 	sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 # config keyboard layout.
@@ -33,14 +33,14 @@ echo -e "[OK]\n"
 
 ### NETWORK/INTERFACING
 # config ssh.
-echo -e "\n[START] Configuring ssh...\n"
+echo -e "\n[TASK] Configuring ssh...\n"
 	sudo systemctl enable ssh
 	sudo systemctl start ssh
 echo -e "[OK]\n"
 # install net-tools, wireless-tools
 	sudo apt install net-tools wireless-tools -y
 # config wifi.
-echo -e "\n[START] Configuring wifi...\n"
+echo -e "\n[TASK] Configuring wifi...\n"
 	touch wpa_supplicant.conf
 	echo "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev" >> wpa_supplicant.conf
 	echo "update_config=1" >> wpa_supplicant.conf
@@ -54,7 +54,7 @@ echo -e "[OK]\n"
 
 
 ### .NET CORE RUNTIMES
-echo -e "\n[START] Installing .NET Core runtimes...\n"
+echo -e "\n[TASK] Installing .NET Core runtimes..."
 # install dependencies.
 	sudo apt install libunwind8 gettext -y
 # install dotnet_3.1.4.
@@ -78,7 +78,7 @@ echo -e "[OK]\n"
 
 
 ### CLEANUP
-echo -e "\n[START] Cleaning up..."
+echo -e "\n[TASK] Cleaning up..."
 # remove unnecessary packages.
 	sudo apt remove raspi-config -y &> /dev/null
 	sudo apt autoremove -y
@@ -88,4 +88,3 @@ echo -e "[OK]\n"
 
 ### END.
 echo -e "[END] All done!\n"
-echo -e "#################"
