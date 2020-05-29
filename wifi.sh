@@ -23,12 +23,7 @@ echo -e "\n --- [TASK] Configuring timezone..."
 	sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring keyboard..."
-	touch keyboard
-	echo -e "XKBMODEL=\"pc105\"\n" >> keyboard
-	echo -e "XKBLAYOUT=\"us\"" >> keyboard
-	echo -e "XKBVARIANT=\"\"" >> keyboard
-	echo -e "XKBOPTIONS=\"\"" >> keyboard
-	echo -e "\nBACKSPACE=\"guess\"" >> keyboard
+	kbconfig=/shared/keyboard
 	sudo mv -f keyboard /etc/default/keyboard
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring ssh..."
@@ -37,7 +32,7 @@ echo -e "\n --- [TASK] Configuring ssh..."
 echo -e " --- [OK]\n"
 
 # update/upgrade default software
-echo -e "\n --- [TASK] Updating and upgrading default software..."
+echo -e "\n --- [TASK] Updating default packages..."
 	sudo killall apt -q
 	sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock* 2> /dev/null
 	sudo dpkg --configure -a
@@ -46,36 +41,20 @@ echo -e "\n --- [TASK] Updating and upgrading default software..."
 echo -e " --- [OK]\n"
 
 # networking/wifi
-echo -e "\n --- [TASK] Configuring networking and wifi..."
-	network="ATT3tf4ur4"
-	netpass="H3nrB1wan9n3t"
-	configfile="50-cloud-init.yaml"
+echo -e "\n --- [TASK] Configuring networking..."
 	sudo apt install net-tools wireless-tools wpasupplicant -y
-	cp "/etc/netplan/$configfile" netplanconfig
-	echo -e "    wifis:" >> netplanconfig
-	echo -e "        wlan0:" >> netplanconfig
-	echo -e "            optional: true" >> netplanconfig
-	echo -e "            access-points:" >> netplanconfig
-	echo -e "                \"ATT3tf4ur4:\"" >> netplanconfig
-	echo -e "                    password: \"H3nrB1wan9n3t\"" >> netplanconfig
-	echo -e "            dhcp4: true" >> netplanconfig
-	
-	
-	
+	sudo mv -f /RPi/ubuntu/50-cloud-init.yaml /etc/netplan/50-cloud-init.yaml
+	sudo netplan generate
+	sudo netplan apply
 echo -e " --- [OK]\n"
-
-
 
 
 
 ### CLEANUP
 echo -e "\n --- [TASK] Cleaning up..."
-# remove unnecessary packages.
-	sudo apt remove raspi-config -y &> /dev/null
 	sudo apt autoremove -y
 echo -e " --- [OK]\n"
-
-
-
+echo -e " ----- [END] Raspberry Pi setup complete. Rebooting..."
+sleep 5
+sudo reboot
 ### END.
-echo -e " ----- [END] Raspberry Pi setup complete."

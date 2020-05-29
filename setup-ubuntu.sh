@@ -1,6 +1,8 @@
 #!/bin/bash
 echo -e "\n ***** [BEGIN] Setting up Raspberry Pi..."
+repo=https://github.com/antlu65/Rpi
 cd ~
+
 
 ### SETUP
 # hostname
@@ -23,12 +25,7 @@ echo -e "\n --- [TASK] Configuring timezone..."
 	sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring keyboard..."
-	touch keyboard
-	echo -e "XKBMODEL=\"pc105\"\n" >> keyboard
-	echo -e "XKBLAYOUT=\"us\"" >> keyboard
-	echo -e "XKBVARIANT=\"\"" >> keyboard
-	echo -e "XKBOPTIONS=\"\"" >> keyboard
-	echo -e "\nBACKSPACE=\"guess\"" >> keyboard
+	curl -o keyboard "$repo/shared/keyboard"
 	sudo mv -f keyboard /etc/default/keyboard
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring ssh..."
