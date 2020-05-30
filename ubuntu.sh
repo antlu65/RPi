@@ -66,7 +66,7 @@ echo -e "\n --- [TASK] Installing .NET Core runtimes..."
 	sudo tar zxf dotnet_5.tar.gz -C /opt/dotnet
 	rm dotnet_5.tar.gz dotnet_5.tar.gz.sha512
 	# create link.
-	sudo rm /usr/local/bin/dotnet
+	sudo rm /usr/local/bin/dotnet &> /dev/null
 	sudo ln -s /opt/dotnet/dotnet /usr/local/bin
 echo -e " --- [OK]\n"
 
@@ -77,21 +77,21 @@ echo -e "\n --- [TASK] Configuring networking..."
 	sudo apt install net-tools wireless-tools wpasupplicant -y
 	netconfig="50-cloud-init.yaml"
 	cat <<- EOF > $netconfig
-    network:
-        version: 2
-        ethernets:
-            eth0:
-                optional: true
-                dhcp4: true
-        wifis:
-		    wlan0:
-			    optional: true
-                access-points:
-                    "ATT3tf4ur4"
-                        password: "H3nrB1wan9n3t"
-                dhcp4: true
+network:
+    version: 2
+    ethernets:
+        eth0:
+            optional: true
+            dhcp4: true
+    wifis:
+        wlan0:
+            optional: true
+            access-points:
+                "ATT3tf4ur4"
+                    password: "H3nrB1wan9n3t"
+            dhcp4: true
 EOF
-	sudo mv -f $netconfig /etc/netplan/50-cloud-init.yaml
+	sudo mv -f $netconfig /etc/netplan/$netconfig
 	sudo netplan --debug generate
 	sudo netplan --debug apply
 echo -e " --- [OK]\n"
