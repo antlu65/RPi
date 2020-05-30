@@ -75,8 +75,23 @@ echo -e " --- [OK]\n"
 # networking/wifi
 echo -e "\n --- [TASK] Configuring networking..."
 	sudo apt install net-tools wireless-tools wpasupplicant -y
-	npconfig=./ubuntu/50-cloud-init.yaml
-	sudo mv -f $npconfig /etc/netplan/50-cloud-init.yaml
+	netconfig="50-cloud-init.yaml"	
+	cat <<- EOF > $netconfig
+    network:
+        version: 2
+        ethernets:
+            eth0:
+                optional: true
+                dhcp4: true
+        wifis:
+		    wlan0:
+			    optional: true
+                access-points:
+                    "ATT3tf4ur4"
+                        password: "H3nrB1wan9n3t"
+                dhcp4: true	
+EOF
+	sudo mv -f $netconfig /etc/netplan/50-cloud-init.yaml
 	sudo netplan --debug generate
 	sudo netplan --debug apply
 echo -e " --- [OK]\n"
