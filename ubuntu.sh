@@ -1,5 +1,5 @@
 #!/bin/bash
-echo -e "\n ***** [BEGIN] Configuring Ubuntu..."
+echo -e "\n ***** [BEGIN] Configuring Ubuntu Server (64bit)..."
 
 
 
@@ -23,8 +23,15 @@ echo -e "\n --- [TASK] Configuring timezone..."
 	sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring keyboard..."
-	kbconfig=./shared/keyboard
-	sudo mv -f $kbconfig /etc/default/keyboard
+	kbconfig="keyboard"
+	touch $kbconfig
+	cat <<- EOF > $kbconfig
+	XKBMODEL="pc105"
+	XKBLAYOUT="us"
+	XKBVARIANT=""
+	XKBOPTIONS=""
+	BACKSPACE="guess"
+EOF
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring ssh..."
 	sudo systemctl enable ssh
@@ -80,6 +87,6 @@ echo -e "\n --- [TASK] Cleaning up..."
 	sudo apt autoremove -y
 echo -e " --- [OK]\n"
 echo -e " ----- [END] Raspberry Pi setup complete. Rebooting..."
-sleep 8
+sleep 5
 sudo reboot
 ### END.

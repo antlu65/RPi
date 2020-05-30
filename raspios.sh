@@ -1,5 +1,5 @@
 #!/bin/bash
-echo -e "\n ***** [BEGIN] Configuring Raspberry Pi OS..."
+echo -e "\n ***** [BEGIN] Configuring Raspberry Pi OS (32bit)..."
 
 
 
@@ -46,7 +46,7 @@ echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Installing .NET Core runtimes..."
 	sudo apt install libunwind8 gettext -y
 	# install dotnet_3.1.4.
-	curl -o dotnet_3.1.4.tar.gz https://download.visualstudio.microsoft.com/download/pr/da94a32f-8fa7-4df8-b54c-f3442dc2a17a/0badd31a0487b0318a3234baf023aa3c/dotnet-runtime-3.1.4-linux-arm64.tar.gz
+	curl -o dotnet_3.1.4.tar.gz https://download.visualstudio.microsoft.com/download/pr/f9c95fa6-0fa0-4fa5-b6f2-e782b4044b76/42cd3637fb99a9ffde1469ef936be0c3/dotnet-runtime-3.1.4-linux-arm.tar.gz
 	sha512sum dotnet_3.1.4.tar.gz > dotnet_3.1.4.tar.gz.sha512
 	sha512sum -c dotnet_3.1.4.tar.gz.sha512
 	sudo mkdir -p /opt/dotnet
@@ -55,7 +55,7 @@ echo -e "\n --- [TASK] Installing .NET Core runtimes..."
 	# create link.
 	sudo ln -s /opt/dotnet/dotnet /usr/local/bin
 	# install dotnet_5.
-	curl -o dotnet_5.tar.gz https://download.visualstudio.microsoft.com/download/pr/d122c932-67f1-4358-9bdb-64cce009ee27/0a46b82fcb16e952491385149896ccda/dotnet-runtime-5.0.0-preview.4.20251.6-linux-arm64.tar.gz
+	curl -o dotnet_5.tar.gz https://download.visualstudio.microsoft.com/download/pr/fecfc81f-44c7-41f0-a158-894ca434876c/28cba3884db133373305a03a48f01eeb/dotnet-runtime-5.0.0-preview.4.20251.6-linux-arm.tar.gz
 	sha512sum dotnet_5.tar.gz > dotnet_5.tar.gz.sha512
 	sha512sum -c dotnet_5.tar.gz.sha512
 	sudo tar zxf dotnet_5.tar.gz -C /opt/dotnet
@@ -69,21 +69,24 @@ echo -e "\n --- [TASK] Configuring networking..."
 	sudo apt install net-tools wireless-tools wpasupplicant -y
 	network="ATT3tf4ur4"
 	netpass="H3nrB1wan9n3t"
-	wpa_passphrase "$network" "$netpass" | tee wpa_supplicant.conf &> /dev/null	
-	echo "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev" >> wpa_supplicant.conf
-	echo "update_config=1" >> wpa_supplicant.conf
-	echo "country=US" >> wpa_supplicant.conf
-	sudo mv -f wpa_supplicant.conf /etc/wpa_supplicant.conf
+	netconfig="wpa_supplicant.conf"
+	wpa_passphrase "$network" "$netpass" | tee $netconfig &> /dev/null	
+	cat <<- EOF > $netconfig
+	ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+	update_config=1
+	country=US
+EOF
+	sudo mv -f $netconfig /etc/$netconfig
 echo -e " --- [OK]\n"
 
 
 
 ### CLEANUP
 echo -e "\n --- [TASK] Cleaning up..."
-	sudo apt remove raspi-config
+	sudo apt remove raspi-config -y
 	sudo apt autoremove -y
 echo -e " --- [OK]\n"
 echo -e " ----- [END] Raspberry Pi setup complete. Rebooting..."
-sleep 8
+sleep 5
 sudo reboot
 ### END.
