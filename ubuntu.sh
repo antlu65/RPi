@@ -102,7 +102,7 @@ echo -e " --- [OK]\n"
 
 ### CLEANUP
 echo -e "\n --- [TASK] Cleaning up..."
-	sudo apt remove unattended-upgrades
+	sudo apt remove unattended-upgrades -y
 	sudo apt autoremove -y
 echo -e " --- [OK]\n"
 echo -e " ----- [END] Ubuntu Server (64bit) setup complete. Rebooting..."
