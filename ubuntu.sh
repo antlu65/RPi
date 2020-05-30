@@ -59,14 +59,15 @@ echo -e "\n --- [TASK] Installing .NET Core runtimes..."
 	sudo mkdir -p /opt/dotnet
 	sudo tar zxf dotnet_3.1.4.tar.gz -C /opt/dotnet
 	rm dotnet_3.1.4.tar.gz dotnet_3.1.4.tar.gz.sha512
-	# create link.
-	sudo ln -s /opt/dotnet/dotnet /usr/local/bin
 	# install dotnet_5.
 	curl -o dotnet_5.tar.gz https://download.visualstudio.microsoft.com/download/pr/d122c932-67f1-4358-9bdb-64cce009ee27/0a46b82fcb16e952491385149896ccda/dotnet-runtime-5.0.0-preview.4.20251.6-linux-arm64.tar.gz
 	sha512sum dotnet_5.tar.gz > dotnet_5.tar.gz.sha512
 	sha512sum -c dotnet_5.tar.gz.sha512
 	sudo tar zxf dotnet_5.tar.gz -C /opt/dotnet
 	rm dotnet_5.tar.gz dotnet_5.tar.gz.sha512
+	# create link.
+	sudo rm /usr/local/bin/dotnet
+	sudo ln -s /opt/dotnet/dotnet /usr/local/bin
 echo -e " --- [OK]\n"
 
 
