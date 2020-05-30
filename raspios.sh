@@ -15,7 +15,15 @@ echo -e "\n --- [TASK] Configuring timezone..."
 	sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring keyboard..."
-	kbconfig=./shared/keyboard
+	kbconfig="keyboard"
+	touch $kbconfig
+	cat <<- EOF > $kbconfig
+	XKBMODEL="pc105"
+	XKBLAYOUT="us"
+	XKBVARIANT=""
+	XKBOPTIONS=""
+	BACKSPACE="guess"
+EOF
 	sudo mv -f $kbconfig /etc/default/keyboard
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring ssh..."
