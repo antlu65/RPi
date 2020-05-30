@@ -32,6 +32,7 @@ echo -e "\n --- [TASK] Configuring keyboard..."
 	XKBOPTIONS=""
 	BACKSPACE="guess"
 EOF
+	sudo mv -f $kbconfig /etc/default/keyboard
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring ssh..."
 	sudo systemctl enable ssh
@@ -43,6 +44,7 @@ echo -e " --- [OK]\n"
 # INSTALL
 # update/upgrade default software
 echo -e "\n --- [TASK] Updating default packages..."
+	sudo systemctl kill unattended-upgrades
 	sudo killall apt -q
 	sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock* 2> /dev/null
 	sudo dpkg --configure -a
@@ -87,8 +89,8 @@ network:
         wlan0:
             optional: true
             access-points:
-                "ATT3tf4ur4"
-                    password: "H3nrB1wan9n3t"
+                "ATT3tf4ur4":
+                password: "H3nrB1wan9n3t"
             dhcp4: true
 EOF
 	sudo mv -f $netconfig /etc/netplan/$netconfig
@@ -100,6 +102,7 @@ echo -e " --- [OK]\n"
 
 ### CLEANUP
 echo -e "\n --- [TASK] Cleaning up..."
+	sudo apt remove unattended-upgrades
 	sudo apt autoremove -y
 echo -e " --- [OK]\n"
 echo -e " ----- [END] Ubuntu Server (64bit) setup complete. Rebooting..."
