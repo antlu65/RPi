@@ -2,9 +2,10 @@
 echo -e "\n ***** [BEGIN] Configuring Ubuntu Server (64bit)..."
 
 
-echo -e "\n --- [TASK] Stopping service: unattended-upgrades..."
+echo -e "\n --- [TASK] Stopping and removing service: unattended-upgrades..."
 	sudo systemctl stop unattended-upgrades
 	sudo systemctl kill unattended-upgrades
+	sudo apt remove unattended-upgrades -y
 echo -e " --- [OK]\n"
 
 
@@ -106,7 +107,6 @@ echo -e " --- [OK]\n"
 
 ### CLEANUP
 echo -e "\n --- [TASK] Cleaning up..."
-	sudo apt remove unattended-upgrades -y
 	sudo apt autoremove -y
 echo -e " --- [OK]\n"
 echo -e " ----- [END] Ubuntu Server (64bit) setup complete. Rebooting..."
