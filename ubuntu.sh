@@ -90,7 +90,7 @@ network:
             optional: true
             access-points:
                 "ATT3tf4ur4":
-                password: "H3nrB1wan9n3t"
+                    password: "H3nrB1wan9n3t"
             dhcp4: true
 EOF
 	sudo mv -f $netconfig /etc/netplan/$netconfig
