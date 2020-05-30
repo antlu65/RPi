@@ -90,7 +90,7 @@ echo -e "\n --- [TASK] Cleaning up..."
 	sudo apt remove raspi-config -y
 	sudo apt autoremove -y
 echo -e " --- [OK]\n"
-echo -e " ----- [END] Raspberry Pi setup complete. Rebooting..."
+echo -e " ----- [END] Raspberry Pi OS (32bit) setup complete. Rebooting..."
 sleep 5
 sudo reboot
 ### END.

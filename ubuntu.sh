@@ -75,7 +75,7 @@ echo -e " --- [OK]\n"
 # networking/wifi
 echo -e "\n --- [TASK] Configuring networking..."
 	sudo apt install net-tools wireless-tools wpasupplicant -y
-	netconfig="50-cloud-init.yaml"	
+	netconfig="50-cloud-init.yaml"
 	cat <<- EOF > $netconfig
     network:
         version: 2
@@ -89,7 +89,7 @@ echo -e "\n --- [TASK] Configuring networking..."
                 access-points:
                     "ATT3tf4ur4"
                         password: "H3nrB1wan9n3t"
-                dhcp4: true	
+                dhcp4: true
 EOF
 	sudo mv -f $netconfig /etc/netplan/50-cloud-init.yaml
 	sudo netplan --debug generate
@@ -102,7 +102,7 @@ echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Cleaning up..."
 	sudo apt autoremove -y
 echo -e " --- [OK]\n"
-echo -e " ----- [END] Raspberry Pi setup complete. Rebooting..."
+echo -e " ----- [END] Ubuntu Server (64bit) setup complete. Rebooting..."
 sleep 5
 sudo reboot
 ### END.
