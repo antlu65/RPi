@@ -69,13 +69,13 @@ echo -e "\n --- [TASK] Configuring networking..."
 	sudo apt install net-tools wireless-tools wpasupplicant -y
 	network="ATT3tf4ur4"
 	netpass="H3nrB1wan9n3t"
-	netconfig="wpa_supplicant.conf"
-	wpa_passphrase "$network" "$netpass" | tee $netconfig &> /dev/null	
+	netconfig="wpa_supplicant.conf"	
 	cat <<- EOF > $netconfig
 	ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 	update_config=1
 	country=US
 EOF
+	wpa_passphrase "$network" "$netpass" > $netconfig
 	sudo mv -f $netconfig /etc/$netconfig
 echo -e " --- [OK]\n"
 
