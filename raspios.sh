@@ -76,8 +76,8 @@ echo -e "\n --- [TASK] Configuring networking..."
 	update_config=1
 	country=US
 EOF
-	wpa_passphrase "$network" "$netpass" > $netconfig
-	sudo mv -f $netconfig /etc/$netconfig
+	echo $(wpa_passphrase "$network" "$netpass") >> $netconfig
+	sudo mv -f $netconfig /etc/wpa_supplicant/$netconfig
 echo -e " --- [OK]\n"
 
 
