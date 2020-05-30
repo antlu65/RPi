@@ -39,24 +39,21 @@ echo -e "\n --- [TASK] Configuring ssh..."
 echo -e " --- [OK]\n"
 
 
-
+# INSTALL
 echo -e "\n --- [TASK] Stopping and removing service: unattended-upgrades..."
 	sudo systemctl stop unattended-upgrades
 	sudo systemctl kill unattended-upgrades
-	sudo apt remove unattended-upgrades -y
-echo -e " --- [OK]\n"
-
-
-
-# INSTALL
-# update/upgrade default software
-echo -e "\n --- [TASK] Updating default packages..."
 	sudo killall apt -q
 	sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock* 2> /dev/null
 	sudo dpkg --configure -a
+	sudo apt remove unattended-upgrades -y
+echo -e " --- [OK]\n"
+echo -e "\n --- [TASK] Updating default packages..."
 	sudo apt update
 	sudo apt upgrade -y
 echo -e " --- [OK]\n"
+
+
 # netcore
 echo -e "\n --- [TASK] Installing .NET Core runtimes..."
 	sudo apt install libunwind8 gettext -y
