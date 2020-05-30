@@ -1,6 +1,8 @@
 #!/bin/bash
 echo -e "\n ***** [BEGIN] Configuring Ubuntu Server (64bit)..."
 
+sudo systemctl stop unattended-upgrades
+sudo systemctl kill unattended-upgrades
 
 
 ### SETUP
@@ -44,7 +46,6 @@ echo -e " --- [OK]\n"
 # INSTALL
 # update/upgrade default software
 echo -e "\n --- [TASK] Updating default packages..."
-	sudo systemctl kill unattended-upgrades
 	sudo killall apt -q
 	sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock* 2> /dev/null
 	sudo dpkg --configure -a
