@@ -32,13 +32,25 @@ echo -e "\n --- [TASK] Configuring ssh..."
 echo -e " --- [OK]\n"
 
 
-
+echo -e "\n --- [TASK] Removing auto-update services..."
+	echo "Disabling apt-daily.timer, apt-daily-upgrade.timer..."
+	sudo systemctl --now disable apt-daily.timer apt-daily-upgrade.timer
+	echo "Disabling unattended-upgrades.service, apt-daily.service, apt-daily-upgrade.service..."
+	sudo systemctl --now disable apt-daily apt-daily-upgrade
+	sudo systemctl --now kill apt-daily apt-daily-upgrade
+	echo "Daemon reload..."
+	sudo systemctl daemon-reload
+	sleep 3
+	echo "Deleting locks..."
+	sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock* 2> /dev/null
+	sleep 3
+	echo "Configure dpkg..."
+	sudo dpkg --configure -a
+	sleep 3
+echo -e " --- [OK]\n"
 # INSTALL
 # update/upgrade default software
 echo -e "\n --- [TASK] Updating default packages..."
-	sudo killall apt -q
-	sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock* 2> /dev/null
-	sudo dpkg --configure -a
 	sudo apt update
 	sudo apt upgrade -y
 echo -e " --- [OK]\n"
