@@ -1,8 +1,11 @@
 #!/bin/bash
 echo -e "\n ***** [BEGIN] Configuring Ubuntu Server (64bit)..."
 
-sudo systemctl stop unattended-upgrades
-sudo systemctl kill unattended-upgrades
+
+echo -e "\n --- [TASK] Stopping service: unattended-upgrades..."
+	sudo systemctl stop unattended-upgrades
+	sudo systemctl kill unattended-upgrades
+echo -e " --- [OK]\n"
 
 
 ### SETUP
