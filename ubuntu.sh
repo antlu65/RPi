@@ -41,18 +41,14 @@ echo -e " --- [OK]\n"
 
 # INSTALL
 echo -e "\n --- [TASK] Removing auto-update services..."
+	sudo systemctl disable --now apt-daily.timer apt-daily-upgrade.timer
+	sudo systemctl disable --now unattended-upgrades apt-daily apt-daily-upgrade
 	sudo systemctl kill --now unattended-upgrades apt-daily apt-daily-upgrade
-	sudo systemctl disable --now unattended-upgrades apt-daily apt-daily-upgrade apt-daily.timer apt-daily-upgrade.timer
 	sudo systemctl daemon-reload
-	sudo killall apt
-	sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock* 2> /dev/null
+	#sudo killall apt
+	#sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock* 2> /dev/null
 	sudo dpkg --configure -a
-	sudo apt remove unattended-upgrades apt-daily apt-daily-upgrade -y
 echo -e " --- [OK]\n"
-
-	
-	
-	
 	
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Updating default packages..."
@@ -112,6 +108,7 @@ echo -e " --- [OK]\n"
 
 ### CLEANUP
 echo -e "\n --- [TASK] Cleaning up..."
+	sudo apt remove unattended-upgrades apt-daily apt-daily-upgrade -y
 	sudo apt autoremove -y
 echo -e " --- [OK]\n"
 echo -e " ----- [END] Ubuntu Server (64bit) setup complete. Rebooting..."
