@@ -49,8 +49,6 @@ echo -e "\n --- [TASK] Removing auto-update services..."
 	#sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock* 2> /dev/null
 	sudo dpkg --configure -a
 echo -e " --- [OK]\n"
-	
-echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Updating default packages..."
 	sudo apt update
 	sudo apt upgrade -y
