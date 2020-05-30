@@ -42,12 +42,12 @@ echo -e " --- [OK]\n"
 # INSTALL
 echo -e "\n --- [TASK] Removing auto-update services..."
 	sudo systemctl kill --now unattended-upgrades apt-daily apt-daily-upgrade
-	sudo systemctl disable --now unattended-upgrades apt-daily apt-daily-upgrade
+	sudo systemctl disable --now unattended-upgrades apt-daily apt-daily-upgrade apt-daily.timer apt-daily-upgrade.timer
 	sudo systemctl daemon-reload
-	sudo killall apt -q
+	sudo killall apt
 	sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock* 2> /dev/null
 	sudo dpkg --configure -a
-	sudo apt remove unattended-upgrades -y
+	sudo apt remove unattended-upgrades apt-daily apt-daily-upgrade -y
 echo -e " --- [OK]\n"
 
 	
