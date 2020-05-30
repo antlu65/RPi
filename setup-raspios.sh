@@ -1,10 +1,15 @@
 #!/bin/bash
-echo -e "\n ***** [BEGIN] Setting up Raspberry Pi..."
+echo -e "\n ***** [BEGIN] Configuring Raspberry Pi OS..."
 
 
 
 ### SETUP
-# timezone, keyboard, ssh
+# password, timezone, keyboard, ssh
+echo -e "\n --- [TASK] Configuring password..."
+	user=pi
+	pass=IMnotBNcrE8ive
+	echo "$user:$pass" | sudo chpasswd
+echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring timezone..."
 	sudo rm -f /etc/localtime
 	sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
@@ -56,12 +61,10 @@ echo -e "\n --- [TASK] Configuring networking..."
 	sudo apt install net-tools wireless-tools wpasupplicant -y
 	network="ATT3tf4ur4"
 	netpass="H3nrB1wan9n3t"
-	#sudo ifconfig wlan0 up
 	wpa_passphrase "$network" "$netpass" | tee wpa_supplicant.conf &> /dev/null	
-	# echo "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev" >> wpa_supplicant.conf
-	# echo "update_config=1" >> wpa_supplicant.conf
-	# echo "country=US" >> wpa_supplicant.conf
-	# echo -e "network=\n{\nssid=\"ATT3tf4ur4\"\npsk=\"H3nrB1wan9n3t\"\n}" >> wpa_supplicant.conf
+	echo "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev" >> wpa_supplicant.conf
+	echo "update_config=1" >> wpa_supplicant.conf
+	echo "country=US" >> wpa_supplicant.conf
 	sudo mv -f wpa_supplicant.conf /etc/wpa_supplicant.conf
 echo -e " --- [OK]\n"
 

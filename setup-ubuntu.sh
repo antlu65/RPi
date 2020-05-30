@@ -1,5 +1,5 @@
 #!/bin/bash
-echo -e "\n ***** [BEGIN] Setting up Raspberry Pi..."
+echo -e "\n ***** [BEGIN] Configuring Ubuntu..."
 
 
 
