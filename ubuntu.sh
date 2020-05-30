@@ -41,13 +41,18 @@ echo -e " --- [OK]\n"
 
 # INSTALL
 echo -e "\n --- [TASK] Removing auto-update services..."
+	echo "Disabling apt-daily.timer, apt-daily-upgrade.timer..."
 	sudo systemctl --now disable apt-daily.timer apt-daily-upgrade.timer
+	echo "Disabling unattended-upgrades.service, apt-daily.service, apt-daily-upgrade.service..."
 	sudo systemctl --now disable unattended-upgrades apt-daily apt-daily-upgrade
 	sudo systemctl --now kill unattended-upgrades apt-daily apt-daily-upgrade
+	echo "Daemon reload..."
 	sudo systemctl daemon-reload
 	sleep 3
+	echo "Deleting locks..."
 	sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock* 2> /dev/null
 	sleep 3
+	echo "Configure dpkg..."
 	sudo dpkg --configure -a
 	sleep 3
 echo -e " --- [OK]\n"
