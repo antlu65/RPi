@@ -9,7 +9,7 @@ scriptRequireRootUser=1
 beginScript() {
   echo -e "\nExecuting $0 ..."
   echo " [BEGIN] $scriptDescription"
-  uid=$(id)
+  uid=$(id -u)
   # Ensure root user if needed.  
   if [ "$scriptRequireRootUser" -eq 1 ] && [ "$uid" -ne 0 ]; then
     echo " ---- [Error] Must be root user."
