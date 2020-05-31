@@ -13,7 +13,7 @@ beginScript() { # $1 -> int for number of extra parameters given to script.
   echo "Executing $0 ..."
   uid=$(id -u)
   # Ensure root user if needed.  
-  if [ "$scriptRequireRootUser" -eq 1 ] && [ "$uid" -ne 0 ]; then
+  if [ ${scriptRequireRootUser} -eq 1 ] && [ ${uid} -ne 0 ]; then
     echo " --- [x] Must be root user."
     exitScript 1
   # Ensure scriptDescription is not empty.
@@ -21,19 +21,19 @@ beginScript() { # $1 -> int for number of extra parameters given to script.
     echo " --- [x] scriptDescription is empty."
     exitScript 1
   # Ensure scriptMinArgs > 0.
-  elif [ "$scriptMinArgs" -lt 0 ]; then
+  elif [ ${scriptMinArgs} -lt 0 ]; then
     echo " --- [x] scriptMinArgs < 0."
     exitScript 1
   # Ensure scriptMaxArgs >= scriptMinArgs.
-  elif [ $(scriptMaxArgs) -lt $(scriptMinArgs) ]; then
+  elif [ ${scriptMaxArgs} -lt ${scriptMinArgs} ]; then
     echo " --- [x] scriptMaxArgs < scriptMinArgs."
     exitScript 1
   # Ensure number of args >= scriptMinArgs.
-  elif [ $(extraParamCount) -lt $(scriptMinArgs) ]; then
+  elif [ ${extraParamCount} -lt ${scriptMinArgs} ]; then
     echo " --- [x] Too few extra parameters ($extraParamCount). Expected at least $scriptMinArgs."
     exitScript 1
   # Ensure args count <= scriptMaxArgs.
-  elif [ $(extraParamCount) -gt $(scriptMaxArgs) ]; then
+  elif [ ${extraParamCount} -gt ${scriptMaxArgs} ]; then
     echo " --- [x] Too many extra parameters ($extraParamCount). Expected at most $scriptMaxArgs."
     exitScript 1
   fi
