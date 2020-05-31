@@ -10,7 +10,7 @@ beginScript() {
   echo -e "\nExecuting $0 ..."
   echo " [BEGIN] $scriptDescription"
   # Ensure root user if needed.  
-  if [ "$scriptRequireRootUser" -eq 1 ] && [ "$EUID" -ne 0 ]; then
+  if [ "$scriptRequireRootUser" -eq 1 ] && [ "$UID" -ne 0 ]; then
     echo " ---- [Error] Must be root user."
     exitScript -1
   # Ensure scriptDescription is not empty.
