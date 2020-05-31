@@ -64,8 +64,8 @@ sudo apt install libunwind8 gettext -y -q
     # download
 curl -o "$archiveFile" "$downloadURL"
 checksumFile="${archiveFile}.sha512"
-sha512sum "$archiveFile" > "$checksumFile"	
-if [ $(sha512sum -c "$checksumFile") -ne 0 ]; then
+sha512sum "$archiveFile" > "$checksumFile"
+if [ $(sha512sum -c "$checksumFile") != "$archiveFile: OK" ]; then
     echo " --- [x] Checksum for downloaded archive '$archiveFile' does not match."
     rm "$archiveFile" "$checksumFile"
     exitScript -1
