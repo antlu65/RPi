@@ -7,8 +7,9 @@ scriptMaxArgs=0
 scriptMinArgs=0
 scriptRequireRootUser=1
 beginScript() {
+  echo ""
   echo " [BEGIN] $scriptDescription"
-  echo -e "\nExecuting $0 ..."
+  echo "Executing $0 ..."
   uid=$(id -u)
   # Ensure root user if needed.  
   if [ "$scriptRequireRootUser" -eq 1 ] && [ "$uid" -ne 0 ]; then
@@ -37,12 +38,13 @@ beginScript() {
   fi
 }
 exitScript() { # $1 -> int for this script's exit code. 0 is success.
-  echo -e "Exited with code $1.\n"
+  echo "Exited with code $1."
   if [ "$1" -eq 0 ]; then
     echo " [SUCCESS] $scriptDescription"
   else
     echo " [FAILED] $scriptDescription"
   fi
+  echo ""
   exit $1
 }
 
