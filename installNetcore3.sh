@@ -55,16 +55,17 @@ downloadURL="https://download.visualstudio.microsoft.com/download/pr/f9c95fa6-0f
 linkDir="/usr/local/bin"
 linkName="dotnet"
 
+
 ######## MAIN #######
 beginScript
 
 sudo apt install libunwind8 gettext -y -q
   
-# install dotnet_3.1.4.
+    # download
 curl -o "$archiveFile" "$downloadURL"
-	checksumFile="${archiveFile}.sha512"
-	
-if [ $(sha512sum "$archiveFile" > "$checksumFile") -ne 0 ]; then
+checksumFile="${archiveFile}.sha512"
+sha512sum "$archiveFile" > "$checksumFile"	
+if [ $(sha512sum -c "$checksumFile") -ne 0 ]; then
     echo " --- [x] Checksum for downloaded archive '$archiveFile' does not match."
     rm "$archiveFile" "$checksumFile"
     exitScript -1
