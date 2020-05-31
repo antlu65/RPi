@@ -42,7 +42,7 @@ exitScript() { # $1 -> int for this script's exit code. 0 is success.
   else
     echo " [FAILED] $scriptDescription"
   fi
-  echo -e "Exited $0 with code $1.\n"
+  echo -e "Exited with code $1.\n"
   exit $1
 }
 
@@ -52,6 +52,7 @@ fileName="keyboard"
 
 ######## BEGIN SCRIPT #######
 beginScript
+echo "Creating config file $fileName"
 touch fileName
 cat <<- EOF > ${fileName}
 	XKBMODEL="pc105"
@@ -60,8 +61,6 @@ cat <<- EOF > ${fileName}
 	XKBOPTIONS=""
 	BACKSPACE="guess"
 EOF
+echo "Moving keyboard config file to $installDir"
 sudo mv -f ${fileName} "${installDir}${fileName}"
-
-
-
 exitScript 0
