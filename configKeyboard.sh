@@ -61,6 +61,6 @@ cat <<- EOF > ${fileName}
 	XKBOPTIONS=""
 	BACKSPACE="guess"
 EOF
-    echo "Moving config file to \'$installDir\'"
-sudo mv -f ${fileName} "${installDir}${fileName}"
+    echo "Moving config file to '$installDir$fileName'"
+sudo mv -f "$fileName" "$installDir$fileName"
 exitScript 0
