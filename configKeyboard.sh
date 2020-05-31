@@ -6,7 +6,7 @@ scriptName="Config Keyboard"
 scriptMaxArgs=0
 scriptMinArgs=0
 scriptRequireRootUser=1
-beginScript() {
+beginScript() { # $1 -> int for number of arguments given to script.
   echo ""
   echo "   [BEGIN] $scriptName"
   echo "Executing $0 ..."
@@ -14,27 +14,27 @@ beginScript() {
   # Ensure root user if needed.  
   if [ "$scriptRequireRootUser" -eq 1 ] && [ "$uid" -ne 0 ]; then
     echo " --- [x] Must be root user."
-    exitScript -1
+    exitScript 1
   # Ensure scriptDescription is not empty.
   elif [ -z "$scriptName" ]; then
     echo " --- [x] scriptDescription is empty."
-    exitScript -1
+    exitScript 1
   # Ensure scriptMinArgs > 0.
   elif [ "$scriptMinArgs" -lt 0 ]; then
     echo " --- [x] scriptMinArgs < 0."
-    exitScript -1
+    exitScript 1
   # Ensure scriptMaxArgs >= scriptMinArgs.
   elif [ "$scriptMaxArgs" -lt "$scriptMinArgs" ]; then
     echo " --- [x] scriptMaxArgs < scriptMinArgs."
-    exitScript -1
+    exitScript 1
   # Ensure number of args >= scriptMinArgs.
-  elif [ "$#" -lt "$scriptMinArgs" ]; then
+  elif [ $1 -lt "$scriptMinArgs" ]; then
     echo " --- [x] Too few parameters ($#). Expected >= $scriptMinArgs."
-    exitScript -1
+    exitScript 1
   # Ensure args count <= scriptMaxArgs.
-  elif [ "$#" -gt "$scriptMaxArgs" ]; then
+  elif [ $1 -gt "$scriptMaxArgs" ]; then
     echo " --- [x] Too many parameters ($#). Expected <= $scriptMaxArgs."
-    exitScript -1
+    exitScript 1
   fi
 }
 exitScript() { # $1 -> int for this script's exit code. 0 is success.
@@ -53,7 +53,7 @@ installDir="/etc/default"
 fileName="keyboard"
 
 ######## MAIN #######
-    beginScript
+    beginScript $#
 touch fileName
 cat <<- EOF > ${fileName}
 	XKBMODEL="pc105"
