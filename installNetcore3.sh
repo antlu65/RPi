@@ -8,7 +8,7 @@ scriptMinArgs=0
 scriptRequireRootUser=1
 beginScript() {
   echo ""
-  echo " [BEGIN] $scriptName"
+  echo "   [BEGIN] $scriptName"
   echo "Executing $0 ..."
   uid=$(id -u)
   # Ensure root user if needed.  
@@ -57,11 +57,9 @@ linkName="dotnet"
 
 
 ######## MAIN #######
-beginScript
+    beginScript
 
 sudo apt install libunwind8 gettext -y -q
-  
-    # download
 curl -o "$archiveFile" "$downloadURL"
 checksumFile="${archiveFile}.sha512"
 sha512sum "$archiveFile" > "$checksumFile"
@@ -81,9 +79,5 @@ else
     sudo ln -s /opt/dotnet/dotnet /usr/local/bin
 fi
 
-	
-
-
-
-exitScript 0
+    exitScript 0
 ######## EXIT #######

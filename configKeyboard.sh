@@ -8,7 +8,7 @@ scriptMinArgs=0
 scriptRequireRootUser=1
 beginScript() {
   echo ""
-  echo " [BEGIN] $scriptName"
+  echo "   [BEGIN] $scriptName"
   echo "Executing $0 ..."
   uid=$(id -u)
   # Ensure root user if needed.  
@@ -53,8 +53,7 @@ installDir="/etc/default"
 fileName="keyboard"
 
 ######## MAIN #######
-beginScript
-    echo "Creating config file '$fileName' ..."
+    beginScript
 touch fileName
 cat <<- EOF > ${fileName}
 	XKBMODEL="pc105"
@@ -63,7 +62,7 @@ cat <<- EOF > ${fileName}
 	XKBOPTIONS=""
 	BACKSPACE="guess"
 EOF
-    echo "Moving config file to '$installDir/$fileName' ..."
 sudo mv -f "$fileName" "$installDir/$fileName"
-exitScript 0
+echo "Created config file '$installDir/$fileName'."
+    exitScript 0
 ######## EXIT #######
