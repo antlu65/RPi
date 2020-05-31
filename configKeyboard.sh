@@ -52,7 +52,7 @@ fileName="keyboard"
 
 ######## BEGIN SCRIPT #######
 beginScript
-echo "Creating config file $fileName"
+    echo "Creating config file \'$fileName\'"
 touch fileName
 cat <<- EOF > ${fileName}
 	XKBMODEL="pc105"
@@ -61,6 +61,6 @@ cat <<- EOF > ${fileName}
 	XKBOPTIONS=""
 	BACKSPACE="guess"
 EOF
-echo "Moving keyboard config file to $installDir"
+    echo "Moving config file to \'$installDir\'"
 sudo mv -f ${fileName} "${installDir}${fileName}"
 exitScript 0
