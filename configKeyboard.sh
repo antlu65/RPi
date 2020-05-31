@@ -37,9 +37,9 @@ beginScript() {
 }
 exitScript() { # $1 -> int for this script's exit code. 0 is success.
   if [[ "$1" -eq 0 ]]; then
-    echo -e " [SUCCESS] $scriptDescription."
+    echo -e " [SUCCESS] $scriptDescription"
   else
-    echo -e " [FAILED] $scriptDescription."
+    echo -e " [FAILED] $scriptDescription"
   fi
   echo -e "Exited $0 with code $1.\n"
   exit $1
