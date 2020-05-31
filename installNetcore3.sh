@@ -3,8 +3,8 @@
 
 ### General Script Variables & Functions
 scriptName="Install Netcore 3"
-scriptMaxArgs=0
-scriptMinArgs=0
+scriptMaxArgs=1
+scriptMinArgs=1
 scriptRequireRootUser=1
 beginScript() {
   echo ""
@@ -51,13 +51,24 @@ exitScript() { # $1 -> int for this script's exit code. 0 is success.
 ### Script-specific Variables and Functions
 installDir="/opt/dotnet"
 archiveFile="dotnet_3.tar.gz"
-downloadURL="https://download.visualstudio.microsoft.com/download/pr/f9c95fa6-0fa0-4fa5-b6f2-e782b4044b76/42cd3637fb99a9ffde1469ef936be0c3/dotnet-runtime-3.1.4-linux-arm.tar.gz"
+downloadURL=""""
 linkDir="/usr/local/bin"
 linkName="dotnet"
 
+### Script-specific Params
+#$1 -> --arm32 or --arm64
 
 ######## MAIN #######
     beginScript
+
+if [ "$1" == "--arm32" ]; then
+    downloadURL="https://download.visualstudio.microsoft.com/download/pr/f9c95fa6-0fa0-4fa5-b6f2-e782b4044b76/42cd3637fb99a9ffde1469ef936be0c3/dotnet-runtime-3.1.4-linux-arm.tar.gz"
+elif [ "$1" == "--arm64" ]; then
+    downloadURL="https://download.visualstudio.microsoft.com/download/pr/da94a32f-8fa7-4df8-b54c-f3442dc2a17a/0badd31a0487b0318a3234baf023aa3c/dotnet-runtime-3.1.4-linux-arm64.tar.gz"
+else
+    echo " --- [x] Script param must be either '--arm32' or '--arm64'."
+    exit -1
+fi
 
 sudo apt install libunwind8 gettext -y -q
 curl -o "$archiveFile" "$downloadURL"
