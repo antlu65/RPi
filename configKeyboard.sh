@@ -1,5 +1,4 @@
 ﻿#!/bin/bash
-#!/bin/bash
 ### Assistance script for configuring keyboard.
 
 ### General Script Variables & Functions
@@ -43,14 +42,15 @@ exitScript() { # $1 -> int for this script's exit code. 0 is success.
   else
     echo -e " ------- [FAILED] $scriptDescription."
   fi
-  echo -e "\n Exited $0."
+  echo -e "\n Exited $0 with code $1."
 }
 
 ### Script-specific Variables and Functions
 installDir="/etc/default"
 fileName="keyboard"
 
-### SCRIPT BEGIN
+######## BEGIN SCRIPT #######
+beginScript
 touch fileName
 cat <<- EOF > ${fileName}
 	XKBMODEL="pc105"
