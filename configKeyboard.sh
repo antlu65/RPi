@@ -47,7 +47,7 @@ exitScript() { # $1 -> int for this script's exit code. 0 is success.
 }
 
 ### Script-specific Variables and Functions
-installDir="/etc/default"
+installDir="/etc/default/"
 fileName="keyboard"
 
 ######## BEGIN SCRIPT #######
