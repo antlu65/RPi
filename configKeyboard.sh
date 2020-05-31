@@ -2,59 +2,59 @@
 ### Assistance script for configuring keyboard.
 
 ### General Script Variables & Functions
-scriptDescription="Config Keyboard"
+scriptName="Config Keyboard"
 scriptMaxArgs=0
 scriptMinArgs=0
 scriptRequireRootUser=1
 beginScript() {
   echo ""
-  echo " [BEGIN] $scriptDescription"
+  echo " [BEGIN] $scriptName"
   echo "Executing $0 ..."
   uid=$(id -u)
   # Ensure root user if needed.  
   if [ "$scriptRequireRootUser" -eq 1 ] && [ "$uid" -ne 0 ]; then
-    echo " --- [Error] Must be root user."
+    echo " --- [x] Must be root user."
     exitScript -1
   # Ensure scriptDescription is not empty.
-  elif [ -z "$scriptDescription" ]; then
-    echo " --- [InternalError] scriptDescription is empty."
+  elif [ -z "$scriptName" ]; then
+    echo " --- [x] scriptDescription is empty."
     exitScript -1
   # Ensure scriptMinArgs > 0.
   elif [ "$scriptMinArgs" -lt 0 ]; then
-    echo " --- [InternalError] scriptMinArgs < 0."
+    echo " --- [x] scriptMinArgs < 0."
     exitScript -1
   # Ensure scriptMaxArgs >= scriptMinArgs.
   elif [ "$scriptMaxArgs" -lt "$scriptMinArgs" ]; then
-    echo " --- [InternalError] scriptMaxArgs < scriptMinArgs."
+    echo " --- [x] scriptMaxArgs < scriptMinArgs."
     exitScript -1
   # Ensure number of args >= scriptMinArgs.
   elif [ "$#" -lt "$scriptMinArgs" ]; then
-    echo " --- [Error] Too few parameters ($#). Expected >= $scriptMinArgs."
+    echo " --- [x] Too few parameters ($#). Expected >= $scriptMinArgs."
     exitScript -1
   # Ensure args count <= scriptMaxArgs.
   elif [ "$#" -gt "$scriptMaxArgs" ]; then
-    echo " --- [Error] Too many parameters ($#). Expected <= $scriptMaxArgs."
+    echo " --- [x] Too many parameters ($#). Expected <= $scriptMaxArgs."
     exitScript -1
   fi
 }
 exitScript() { # $1 -> int for this script's exit code. 0 is success.
   echo "Exited with code $1."
   if [ "$1" -eq 0 ]; then
-    echo " [SUCCESS] $scriptDescription"
+    echo "   [SUCCESS] $scriptName"
   else
-    echo " [FAILED] $scriptDescription"
+    echo "   [FAILED] $scriptName"
   fi
   echo ""
   exit $1
 }
 
 ### Script-specific Variables and Functions
-installDir="/etc/default/"
+installDir="/etc/default"
 fileName="keyboard"
 
-######## BEGIN SCRIPT #######
+######## MAIN #######
 beginScript
-    echo "Creating config file '$fileName'"
+    echo "Creating config file '$fileName' ..."
 touch fileName
 cat <<- EOF > ${fileName}
 	XKBMODEL="pc105"
@@ -63,6 +63,7 @@ cat <<- EOF > ${fileName}
 	XKBOPTIONS=""
 	BACKSPACE="guess"
 EOF
-    echo "Moving config file to '$installDir$fileName'"
-sudo mv -f "$fileName" "$installDir$fileName"
+    echo "Moving config file to '$installDir/$fileName' ..."
+sudo mv -f "$fileName" "$installDir/$fileName"
 exitScript 0
+######## EXIT #######
