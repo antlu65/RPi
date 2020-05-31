@@ -25,16 +25,16 @@ beginScript() { # $1 -> int for number of extra parameters given to script.
     echo " --- [x] scriptMinArgs < 0."
     exitScript 1
   # Ensure scriptMaxArgs >= scriptMinArgs.
-  elif [ "$scriptMaxArgs" -lt "$scriptMinArgs" ]; then
+  elif [ $(scriptMaxArgs) -lt $(scriptMinArgs) ]; then
     echo " --- [x] scriptMaxArgs < scriptMinArgs."
     exitScript 1
   # Ensure number of args >= scriptMinArgs.
-  elif [ "$extraParamCount" -lt "$scriptMinArgs" ]; then
-    echo " --- [x] Too few extra parameters ($#). Expected at least $scriptMinArgs."
+  elif [ $(extraParamCount) -lt $(scriptMinArgs) ]; then
+    echo " --- [x] Too few extra parameters ($extraParamCount). Expected at least $scriptMinArgs."
     exitScript 1
   # Ensure args count <= scriptMaxArgs.
-  elif [ "$extraParamCount" -gt "$scriptMaxArgs" ]; then
-    echo " --- [x] Too many extra parameters ($#). Expected at most $scriptMaxArgs."
+  elif [ $(extraParamCount) -gt $(scriptMaxArgs) ]; then
+    echo " --- [x] Too many extra parameters ($extraParamCount). Expected at most $scriptMaxArgs."
     exitScript 1
   fi
 }
