@@ -52,7 +52,7 @@ fileName="keyboard"
 
 ######## BEGIN SCRIPT #######
 beginScript
-    echo "Creating config file \'$fileName\'"
+    echo "Creating config file '$fileName'"
 touch fileName
 cat <<- EOF > ${fileName}
 	XKBMODEL="pc105"
