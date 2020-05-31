@@ -6,7 +6,8 @@ scriptName="Install Netcore 3"
 scriptMaxArgs=1
 scriptMinArgs=1
 scriptRequireRootUser=1
-beginScript() {
+beginScript() { # $1 -> int for number of extra parameters given to script.
+  extraParamCount=$($1 - 1)
   echo ""
   echo "   [BEGIN] $scriptName"
   echo "Executing $0 ..."
@@ -28,12 +29,12 @@ beginScript() {
     echo " --- [x] scriptMaxArgs < scriptMinArgs."
     exitScript 1
   # Ensure number of args >= scriptMinArgs.
-  elif [ $1 -lt "$scriptMinArgs" ]; then
-    echo " --- [x] Too few parameters ($#). Expected at least $scriptMinArgs."
+  elif [ "$extraParamCount" -lt "$scriptMinArgs" ]; then
+    echo " --- [x] Too few extra parameters ($#). Expected at least $scriptMinArgs."
     exitScript 1
   # Ensure args count <= scriptMaxArgs.
-  elif [ $1 -gt "$scriptMaxArgs" ]; then
-    echo " --- [x] Too many parameters ($#). Expected at most $scriptMaxArgs."
+  elif [ "$extraParamCount" -gt "$scriptMaxArgs" ]; then
+    echo " --- [x] Too many extra parameters ($#). Expected at most $scriptMaxArgs."
     exitScript 1
   fi
 }

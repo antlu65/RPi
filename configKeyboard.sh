@@ -6,7 +6,8 @@ scriptName="Config Keyboard"
 scriptMaxArgs=0
 scriptMinArgs=0
 scriptRequireRootUser=1
-beginScript() { # $1 -> int for number of arguments given to script.
+beginScript() { # $1 -> int for number of extra parameters given to script.
+  extraParamCount=$($1 - 1)
   echo ""
   echo "   [BEGIN] $scriptName"
   echo "Executing $0 ..."
@@ -28,12 +29,12 @@ beginScript() { # $1 -> int for number of arguments given to script.
     echo " --- [x] scriptMaxArgs < scriptMinArgs."
     exitScript 1
   # Ensure number of args >= scriptMinArgs.
-  elif [ $1 -lt "$scriptMinArgs" ]; then
-    echo " --- [x] Too few parameters ($#). Expected >= $scriptMinArgs."
+  elif [ "$extraParamCount" -lt "$scriptMinArgs" ]; then
+    echo " --- [x] Too few extra parameters ($#). Expected at least $scriptMinArgs."
     exitScript 1
   # Ensure args count <= scriptMaxArgs.
-  elif [ $1 -gt "$scriptMaxArgs" ]; then
-    echo " --- [x] Too many parameters ($#). Expected <= $scriptMaxArgs."
+  elif [ "$extraParamCount" -gt "$scriptMaxArgs" ]; then
+    echo " --- [x] Too many extra parameters ($#). Expected at most $scriptMaxArgs."
     exitScript 1
   fi
 }
