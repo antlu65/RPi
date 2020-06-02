@@ -31,7 +31,7 @@ echo -e "\n --- [TASK] Configuring ssh..."
 	sudo systemctl start ssh
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Setup terminal auto-login..."
-	sudo raspi-config do_boot_behaviour B2
+	sudo raspi-config nonint do_boot_behaviour B2
 echo -e " --- [OK]\n"
 
 
