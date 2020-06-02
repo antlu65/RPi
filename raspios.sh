@@ -39,14 +39,14 @@ echo -e "\n --- [TASK] Configuring ssh..."
 	sudo systemctl start ssh
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring terminal login..."
-	oconfig=override.conf
-	touch $oconfig
-	cat <<-EOF > $config
+	tconfig=override.conf
+	# touch $oconfigg
+	cat <<-EOF > $tconfig
 	[Service]
 	ExecStart=
 	ExecStart=/sbin/agetty --noissue --autologin pi %I $TERM
 EOF
-	sudo mv -f $oconfig "/etc/systemd/system/getty@tty1.service.d/$oconfig"
+	sudo mv -f $tconfig /etc/systemd/system/getty@tty1.service.d/$oconfig
 echo -e " --- [OK]\n"
 
 
