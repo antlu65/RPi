@@ -31,8 +31,17 @@ echo -e "\n --- [TASK] Configuring ssh..."
 	sudo systemctl start ssh
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Setup terminal auto-login..."
-	sudo raspi-config nonint do_boot_behaviour B2
+	touch override.conf
+	cat <<-EOF > override.conf
+	[Service]
+	ExecStart=
+	ExecStart=/sbin/agetty --noissue --autologin pi %I $TERM
+EOF
+	folder="/etc/systemd/system/getty@tty1.service.d"
+	sudo mkdir $folder
+	sudo mv -f override.conf "$folder/$override.conf"
 echo -e " --- [OK]\n"
+
 
 
 echo -e "\n --- [TASK] Removing auto-update services..."
