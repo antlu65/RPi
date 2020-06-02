@@ -37,6 +37,18 @@ echo -e "\n --- [TASK] Configuring ssh..."
 	sudo systemctl enable ssh
 	sudo systemctl start ssh
 echo -e " --- [OK]\n"
+echo -e "\n --- [TASK] Setup terminal auto-login..."
+	touch override.conf
+	cat <<-EOF > override.conf
+	[Service]
+	ExecStart=
+	ExecStart=/sbin/agetty --noissue --autologin ubuntu %I $TERM
+EOF
+	folder="/etc/systemd/system/getty@tty1.service.d"
+	sudo mkdir $folder
+	sudo mv -f override.conf "$folder/$override.conf"
+echo -e " --- [OK]\n"
+
 
 
 # INSTALL
