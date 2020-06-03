@@ -44,7 +44,7 @@ echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring terminal login..."
 	tconfig=override.conf
 	tdir="/etc/systemd/system/getty@tty1.service.d"
-	rootusername=pi
+	rootusername=ubuntu
 	cat <<-EOF > $tconfig
 	[Service]
 	ExecStart=
