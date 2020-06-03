@@ -4,7 +4,7 @@
 echo -e "\n --- [TASK] Installing dependencies..."
     sudo apt install -y libts0 bc fbi git evtest libts-bin device-tree-compiler
     sudo apt install -y python3-dev python3-pip python3-smbus
-    sudo pip3 install spidev evdev
+    sudo pip3 install spidev evdevgit
 
     rotateparams="rotate=90,touch-swapxy=true,touch-invx=true"
     overlay=$(printf "dtoverlay=pitft28-capacitive,speed=64000000,fps=30\ndtoverlay=pitft28-capacitive,${rotateparams}")
