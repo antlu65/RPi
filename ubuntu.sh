@@ -38,7 +38,7 @@ echo -e "\n --- [TASK] Configuring keyboard..."
 	XKBVARIANT=""
 	XKBOPTIONS=""
 	BACKSPACE="guess"
-EO
+EOF
 	sudo mv -f $kbconfig /etc/default/keyboard
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring terminal login..."
