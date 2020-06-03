@@ -21,6 +21,14 @@ echo -e "\n --- [TASK] Configuring timezone..."
 	sudo rm -f /etc/localtime
 	sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 echo -e " --- [OK]\n"
+echo -e "\n --- [TASK] Configuring locale..."
+	lconfig="locale"
+	touch $lconfig
+	cat <<- EOF > $lconfig
+	LANG=en_US.UTF-8
+EOF
+	sudo mv -f $lconfig /etc/default/$lconfig
+echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring keyboard..."
 	kbconfig="keyboard"
 	touch $kbconfig
@@ -33,10 +41,23 @@ echo -e "\n --- [TASK] Configuring keyboard..."
 EOF
 	sudo mv -f $kbconfig /etc/default/keyboard
 echo -e " --- [OK]\n"
+echo -e "\n --- [TASK] Configuring terminal login..."
+	tconfig=override.conf
+	tdir="/etc/systemd/system/getty@tty1.service.d"
+	rootusername=ubuntu
+	cat <<-EOF > $tconfig
+	[Service]
+	ExecStart=
+	ExecStart=/sbin/agetty --noissue --autologin $rootusername %I $TERM
+EOF
+	sudo mkdir $tdir
+	sudo mv -f $tconfig "$tdir/$tconfig"
+echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring ssh..."
 	sudo systemctl enable ssh
 	sudo systemctl start ssh
 echo -e " --- [OK]\n"
+
 
 
 # INSTALL
