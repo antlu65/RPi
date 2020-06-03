@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="33fe5e04-c1fb-485c-8277-0b9c64b41795" name="Default Changelist" comment="" />
+    <list default="true" id="33fe5e04-c1fb-485c-8277-0b9c64b41795" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/install-netcore.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,6 +39,8 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -31,5 +54,26 @@
       <updated>1590813481408</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="232" y="362" width="816" height="729" key="#Intentions" timestamp="1590909914965">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="232" y="362" width="816" height="729" key="#Intentions/0.0.2560.1400/2560.0.2048.1112/-2560.0.2560.1400@0.0.2560.1400" timestamp="1590909914965" />
+    <state x="148" y="348" key="SettingsEditor" timestamp="1590910875056">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="148" y="348" key="SettingsEditor/0.0.2560.1400/2560.0.2048.1112/-2560.0.2560.1400@0.0.2560.1400" timestamp="1590910875056" />
   </component>
 </project>
