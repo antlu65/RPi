@@ -27,7 +27,7 @@ echo -e "\n --- [TASK] Configuring locale..."
 	cat <<- EOF > $lconfig
 	LANG=en_US.UTF-8
 EOF
-s	sudo mv -f $lconfig /etc/default/$lconfig
+	sudo mv -f $lconfig /etc/default/$lconfig
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring keyboard..."
 	kbconfig="keyboard"
