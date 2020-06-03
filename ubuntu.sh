@@ -43,14 +43,15 @@ EOF
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring terminal login..."
 	tconfig=override.conf
+	tdir="/etc/systemd/system/getty@tty1.service.d"
 	rootusername=pi
-	# touch $oconfigg
 	cat <<-EOF > $tconfig
 	[Service]
 	ExecStart=
 	ExecStart=/sbin/agetty --noissue --autologin $rootusername %I $TERM
 EOF
-	sudo mv -f $tconfig /etc/systemd/system/getty@tty1.service.d/$oconfig
+	sudo mkdir /etc/
+	sudo mv -f $tconfig "tdir/$tconfig"
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring ssh..."
 	sudo systemctl enable ssh

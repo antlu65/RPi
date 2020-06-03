@@ -41,13 +41,12 @@ echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring terminal login..."
 	tconfig=override.conf
 	rootusername=pi
-	# touch $oconfigg
 	cat <<-EOF > $tconfig
 	[Service]
 	ExecStart=
 	ExecStart=/sbin/agetty --noissue --autologin $rootusername %I $TERM
 EOF
-	sudo mv -f $tconfig /etc/systemd/system/getty@tty1.service.d/$oconfig
+	sudo mv -f $tconfig /etc/systemd/system/getty@tty1.service.d/$tconfig
 echo -e " --- [OK]\n"
 
 
