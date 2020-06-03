@@ -34,10 +34,6 @@ echo -e "\n --- [TASK] Configuring keyboard..."
 EOF
 	sudo mv -f $kbconfig /etc/default/$kbconfig
 echo -e " --- [OK]\n"
-echo -e "\n --- [TASK] Configuring ssh..."
-	sudo systemctl enable ssh
-	sudo systemctl start ssh
-echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring terminal login..."
 	tconfig=override.conf
 	tdir="/etc/systemd/system/getty@tty1.service.d"
@@ -47,7 +43,7 @@ echo -e "\n --- [TASK] Configuring terminal login..."
 	ExecStart=
 	ExecStart=/sbin/agetty --noissue --autologin $rootusername %I $TERM
 EOF
-	sudo mkdir /etc/
+	sudo mkdir $tdir
 	sudo mv -f $tconfig "$tdir/$tconfig"
 echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Configuring ssh..."
