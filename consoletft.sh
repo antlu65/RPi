@@ -3,8 +3,8 @@
 # Install prereqs
 echo "\n --- [TASK] Installing dependencies..."
     sudo apt install -y -q bc device-tree-compiler
-    sudo apt install -y -q python3-dev python3-pip python3-spidev python3-smbus
-    sudo pip3 install spidev
+    sudo apt install -y -q python-dev python-pip python-spidev python-smbus
+    sudo pip install spidev
 
     rotateparams="rotate=90,touch-swapxy=true,touch-invx=true"
     overlay=$(printf "dtoverlay=pitft28-capacitive,speed=64000000,fps=30\ndtoverlay=pitft28-capacitive,${rotateparams}")
