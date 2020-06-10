@@ -87,12 +87,12 @@ echo -e " --- [OK]\n"
 echo -e "\n --- [TASK] Installing .NET Core runtimes..."
 	sudo apt install libunwind8 gettext -y
 	# install dotnet_3.1.4.
-	curl -o dotnet_3.1.4.tar.gz https://download.visualstudio.microsoft.com/download/pr/da94a32f-8fa7-4df8-b54c-f3442dc2a17a/0badd31a0487b0318a3234baf023aa3c/dotnet-runtime-3.1.4-linux-arm64.tar.gz
-	sha512sum dotnet_3.1.4.tar.gz > dotnet_3.1.4.tar.gz.sha512
-	sha512sum -c dotnet_3.1.4.tar.gz.sha512
+	curl -o dotnet_3.1.5.tar.gz https://download.visualstudio.microsoft.com/download/pr/65291ed8-e931-4605-9d5a-265928a835d0/1a15d18655c8b260170117e9bd1a1cb7/dotnet-runtime-3.1.5-linux-arm64.tar.gz
+	sha512sum dotnet_3.1.5.tar.gz > dotnet_3.1.5.tar.gz.sha512
+	sha512sum -c dotnet_3.1.5.tar.gz.sha512
 	sudo mkdir -p /opt/dotnet
-	sudo tar zxf dotnet_3.1.4.tar.gz -C /opt/dotnet
-	rm dotnet_3.1.4.tar.gz dotnet_3.1.4.tar.gz.sha512
+	sudo tar zxf dotnet_3.1.5.tar.gz -C /opt/dotnet
+	rm dotnet_3.1.5.tar.gz dotnet_3.1.5.tar.gz.sha512
 	# install dotnet_5.
 	curl -o dotnet_5.tar.gz https://download.visualstudio.microsoft.com/download/pr/d122c932-67f1-4358-9bdb-64cce009ee27/0a46b82fcb16e952491385149896ccda/dotnet-runtime-5.0.0-preview.4.20251.6-linux-arm64.tar.gz
 	sha512sum dotnet_5.tar.gz > dotnet_5.tar.gz.sha512
