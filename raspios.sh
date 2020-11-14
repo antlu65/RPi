@@ -50,6 +50,11 @@ echo -e "\n --- [TASK] Configuring ssh..."
 	sudo systemctl enable ssh
 	sudo systemctl start ssh
 echo -e " --- [OK]\n"
+echo -e "\n --- [TASK] Configuring i2c..."
+  sudo -- bash -c 'echo "dtparam=i2c_arm=on" >> /boot/config.txt'
+  sudo modprobe i2c-dev
+  sudo -- bash -c 'echo "i2c-dev" >> /etc/modules'
+echo -e " --- [OK]\n"
 
 
 
