@@ -90,12 +90,12 @@ echo -e "\n --- [TASK] Installing .NET Core runtimes..."
 	sudo mkdir -p /opt/dotnet
 	sudo tar zxf dotnet_3.1.10.tar.gz -C /opt/dotnet
 	rm dotnet_3.1.10.tar.gz dotnet_3.1.10.tar.gz.sha512
-	# install dotnet_5.0.0.
-	curl -o dotnet_5.0.0.tar.gz https://download.visualstudio.microsoft.com/download/pr/5fc4659b-86c2-4e8f-b409-853e6d8224a5/6de0fc8c6e26f308bf246aaa967c9fc1/dotnet-runtime-5.0.0-linux-arm.tar.gz
-	sha512sum dotnet_5.0.0.tar.gz > dotnet_5.0.0.tar.gz.sha512
-	sha512sum -c dotnet_5.0.0.tar.gz.sha512
-	sudo tar zxf dotnet_5.0.0.tar.gz -C /opt/dotnet
-	rm dotnet_5.0.0.tar.gz dotnet_5.0.0.tar.gz.sha512
+	# install dotnet_5.0.1.
+	curl -o dotnet_5.0.1.tar.gz https://download.visualstudio.microsoft.com/download/pr/46b6dfbf-8da3-4e95-ae33-abd5c875bc3e/566db9b58e809f4ed6d571a1de09fc58/dotnet-runtime-5.0.1-linux-arm.tar.gz
+	sha512sum dotnet_5.0.1.tar.gz > dotnet_5.0.1.tar.gz.sha512
+	sha512sum -c dotnet_5.0.1.tar.gz.sha512
+	sudo tar zxf dotnet_5.0.1.tar.gz -C /opt/dotnet
+	rm dotnet_5.0.1.tar.gz dotnet_5.0.1.tar.gz.sha512
 	# create link.
 	sudo rm /usr/local/bin/dotnet
 	sudo ln -s /opt/dotnet/dotnet /usr/local/bin
