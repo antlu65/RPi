@@ -56,8 +56,7 @@ echo -e "\n --- [TASK] Configuring i2c..."
   sudo -- bash -c 'echo "i2c-dev" >> /etc/modules'
 echo -e " --- [OK]\n"
 
-
-
+# Remove auto-update service.
 echo -e "\n --- [TASK] Removing auto-update services..."
 	echo "Disabling apt-daily.timer, apt-daily-upgrade.timer..."
 	sudo systemctl --now disable apt-daily.timer apt-daily-upgrade.timer
@@ -74,15 +73,35 @@ echo -e "\n --- [TASK] Removing auto-update services..."
 	sudo dpkg --configure -a
 	sleep 3
 echo -e " --- [OK]\n"
-# INSTALL
-# update/upgrade default software
-echo -e "\n --- [TASK] Updating default packages..."
-	sudo apt update
-	sudo apt upgrade -y
+
+# Configure wifi.
+echo -e "\n --- [TASK] Configuring wifi..."
+	sudo apt install net-tools wireless-tools wpasupplicant -y -qq
+	network="ATT3tf4ur4"
+	netpass="H3nrB1wan9n3t"
+	netconfig="wpa_supplicant.conf"	
+	cat <<- EOF > $netconfig
+	ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+	update_config=1
+	country=US
+EOF
+	wpa_passphrase "$network" "$netpass" >> $netconfig
+	sudo mv -f $netconfig /etc/wpa_supplicant/$netconfig
+	rfkill unblock wifi
+	sudo ifconfig wlan0 up
+	sudo dhclient wlan0 &
 echo -e " --- [OK]\n"
-# netcore
-echo -e "\n --- [TASK] Installing .NET Core runtimes..."
-	sudo apt install libunwind8 gettext -y
+
+
+# Update default software.
+echo -e "\n --- [TASK] Updating default packages..."
+	sudo apt update -q
+	sudo apt upgrade -y -q
+echo -e " --- [OK]\n"
+
+# Install .NET 5, .NET Core 3.1.
+echo -e "\n --- [TASK] Installing .NET 5, .NET Core 3.1..."
+	sudo apt install libunwind8 gettext -y -q
 	# install dotnet_3.1.10.
 	curl -o dotnet_3.1.10.tar.gz https://download.visualstudio.microsoft.com/download/pr/8261839b-2b61-4c49-a3e4-90b32f25bf50/12ff8ed47c32c199c04066eb07647f4e/dotnet-runtime-3.1.10-linux-arm.tar.gz
 	sha512sum dotnet_3.1.10.tar.gz > dotnet_3.1.10.tar.gz.sha512
@@ -101,26 +120,35 @@ echo -e "\n --- [TASK] Installing .NET Core runtimes..."
 	sudo ln -s /opt/dotnet/dotnet /usr/local/bin
 echo -e " --- [OK]\n"
 
-
-
-# networking/wifi
-echo -e "\n --- [TASK] Configuring networking..."
-	sudo apt install net-tools wireless-tools wpasupplicant -y
-	network="ATT3tf4ur4"
-	netpass="H3nrB1wan9n3t"
-	netconfig="wpa_supplicant.conf"	
-	cat <<- EOF > $netconfig
-	ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-	update_config=1
-	country=US
+# Install Prometheus.
+echo -e "\n --- [TASK] Installing Prometheus..."
+  sudo apt install prometheus -y -q
+  sudo rm /etc/prometheus/prometheus.yml
+  prconfig="prometheus.yml"
+	touch $prconfig
+	cat <<- EOF > $prconfig
+	global:
+	  scrape_interval: 5s
+	  evaluation_interval: 15s
+  
+  rule_files:
+  #
+  
+  scrape_configs:
+    - job_name: prometheus
+      static_configs:
+        - targets: ['localhost:1234']
 EOF
-	wpa_passphrase "$network" "$netpass" >> $netconfig
-	sudo mv -f $netconfig /etc/wpa_supplicant/$netconfig
-	rfkill unblock wifi
-	sudo ifconfig wlan0 up
-	sudo dhclient wlan0 &
+	sudo mv -f $prconfig /etc/prometheus/$kbconfig
 echo -e " --- [OK]\n"
 
+# Install Grafana.
+echo -e "\n --- [TASK] Installing Grafana..."
+wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
+echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+sudo apt update -qq
+sudo apt install grafana -y -q
+echo -e " --- [OK]\n"
 
 
 ### CLEANUP
