@@ -53,17 +53,17 @@ EOF
 	sudo mv -f $tconfig /etc/systemd/system/getty@tty1.service.d/$tconfig
 echo -e "OK\n"
 
-# Configure SSH.
-echo -e " -*- Configure ssh ... "
-	sudo systemctl enable ssh 2> /dev/null
-	sudo systemctl start ssh 2> /dev/null
-echo -e "OK\n"
-
 # Configure I2C.
 echo -e " -*- Configure i2c ... "
   sudo -- bash -c 'echo "dtparam=i2c_arm=on" >> /boot/config.txt'
   sudo modprobe i2c-dev
   sudo -- bash -c 'echo "i2c-dev" >> /etc/modules'
+echo -e "OK\n"
+
+# Enable SSH.
+echo -e " -*- Enable ssh ... "
+	sudo systemctl enable ssh
+	sudo systemctl start ssh
 echo -e "OK\n"
 
 # Remove Auto-Update Service.
@@ -150,6 +150,8 @@ wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
 echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
 sudo apt update -q
 sudo apt install grafana -y -q
+sudo systemctl enable grafana-server
+sudo systemctl start grafana-server
 echo -e "OK\n"
 
 
@@ -159,6 +161,8 @@ echo -e " -*- Cleanup ... "
 	sudo apt autoremove -y -q
 	rm raspios.sh
 echo -e "OK\n"
+
+# Reboot.
 echo -e " ---***--- Setup Complete. Rebooting ... "
 sleep 5
 sudo shutdown -r now
