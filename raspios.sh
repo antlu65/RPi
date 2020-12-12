@@ -68,16 +68,13 @@ echo -e "OK\n"
 
 # Remove Auto-Update Service.
 echo -e " -*- Remove Auto-Update Service ... "
-	sudo systemctl --now disable apt-daily.timer apt-daily-upgrade.timer 2> /dev/null
-	sudo systemctl --now disable apt-daily apt-daily-upgrade 2> /dev/null
-	sudo systemctl --now kill apt-daily apt-daily-upgrade 2> /dev/null
-	# echo "Daemon reload..."
+	sudo systemctl --now disable apt-daily.timer apt-daily-upgrade.timer
+	sudo systemctl --now disable apt-daily apt-daily-upgrade
+	sudo systemctl --now kill apt-daily apt-daily-upgrade
 	sudo systemctl daemon-reload
 	sleep 3
-	# echo "Deleting locks..."
-	sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock* 2> /dev/null
+	sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock*
 	sleep 3
-	# echo "Configure dpkg..."
 	sudo dpkg --configure -a
 	sleep 3
 echo -e "OK\n"
