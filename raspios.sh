@@ -2,29 +2,29 @@
 echo -e "\n ---***--- Raspberry Pi OS (32bit) Setup\n"
 
 # Configure Password.
-echo -e "-*- Configure Password ... "
+echo -e " -*- Configure Password ... "
 	user=pi
 	pass=IMnotBNcrE8ive
 	echo "$user:$pass" | sudo chpasswd
-echo -e "OK\n"
+echo -e " --- OK\n"
 
 
 # Configure Timezone.
-echo -e "-*- Configure Timezone ... "
+echo -e " -*- Configure Timezone ... "
 	sudo rm -f /etc/localtime
 	sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
-echo -e "OK\n"
+echo -e " --- OK\n"
 
 
 # Configure Locale.
-echo -e "-*- Configure Locale ... "
+echo -e " -*- Configure Locale ... "
 	lconfig="locale"
 	touch $lconfig
 	cat <<- EOF > $lconfig
 LANG=en_US.UTF-8
 EOF
 	sudo mv -f $lconfig /etc/default/$lconfig
-echo -e "OK\n"
+echo -e " --- OK\n"
 
 
 # Configure Keyboard.
@@ -39,7 +39,7 @@ XKBOPTIONS=""
 BACKSPACE="guess"
 EOF
 	sudo mv -f $kbconfig /etc/default/$kbconfig
-echo -e "OK\n"
+echo -e " --- OK\n"
 
 # Configure Terminal.
 echo -e "-*- Configure Terminal ... "
@@ -51,20 +51,20 @@ ExecStart=
 ExecStart=/sbin/agetty --noissue --autologin $rootusername %I $TERM
 EOF
 	sudo mv -f $tconfig /etc/systemd/system/getty@tty1.service.d/$tconfig
-echo -e "OK\n"
+echo -e " --- OK\n"
 
 # Configure I2C.
 echo -e " -*- Configure i2c ... "
   sudo -- bash -c 'echo "dtparam=i2c_arm=on" >> /boot/config.txt'
   sudo modprobe i2c-dev
   sudo -- bash -c 'echo "i2c-dev" >> /etc/modules'
-echo -e "OK\n"
+echo -e " --- OK\n"
 
 # Enable SSH.
 echo -e " -*- Enable ssh ... "
 	sudo systemctl enable ssh
 	sudo systemctl start ssh
-echo -e "OK\n"
+echo -e " --- OK\n"
 
 # Remove Auto-Update Service.
 echo -e " -*- Remove Auto-Update Service ... "
@@ -77,13 +77,13 @@ echo -e " -*- Remove Auto-Update Service ... "
 	sleep 3
 	sudo dpkg --configure -a
 	sleep 3
-echo -e "OK\n"
+echo -e " --- OK\n"
 
 # Upgrade Default Packages.
 echo -e " -*- Upgrade Default Packages ... "
 	sudo apt update -q
 	sudo apt upgrade -y -q
-echo -e "OK\n"
+echo -e " --- OK\n"
 
 # Setup Wifi.
 echo -e " -*- Setup Wifi ... "
@@ -101,7 +101,7 @@ EOF
 	rfkill unblock wifi
 	sudo ifconfig wlan0 up
 	sudo dhclient wlan0 &
-echo -e "OK\n"
+echo -e " --- OK\n"
 
 # Install .NET 5, .NET Core 3.1.
 echo -e " -*- Install Microsoft .NET ... "
@@ -122,7 +122,7 @@ echo -e " -*- Install Microsoft .NET ... "
 	
 	sudo rm /usr/local/bin/dotnet 2> /dev/null
 	sudo ln -s /opt/dotnet/dotnet /usr/local/bin
-echo -e "OK\n"
+echo -e " --- OK\n"
 
 # Install Prometheus.
 echo -e "-*- Install Prometheus ... "
@@ -139,7 +139,7 @@ scrape_configs:
     - targets: ['localhost:1234']
 EOF
 	sudo mv -f $prconfig /etc/prometheus/$prconfig
-echo -e "OK\n"
+echo -e " --- OK\n"
 
 # Install Grafana.
 echo -e " -*- Install Grafana ... "
@@ -149,7 +149,7 @@ sudo apt update -q
 sudo apt install grafana -y -q
 sudo systemctl enable grafana-server
 sudo systemctl start grafana-server
-echo -e "OK\n"
+echo -e " --- OK\n"
 
 
 # Cleanup.
@@ -157,7 +157,7 @@ echo -e " -*- Cleanup ... "
 	sudo apt remove raspi-config -y -q
 	sudo apt autoremove -y -q
 	rm raspios.sh
-echo -e "OK\n"
+echo -e " --- OK\n"
 
 # Reboot.
 echo -e " ---***--- Setup Complete. Rebooting ... "
