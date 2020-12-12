@@ -51,9 +51,9 @@ EOF
 echo -e "OK\n"
 
 # Configure SSH.
-echo -e "\n -*- Configure ssh ... "
-	sudo systemctl enable ssh
-	sudo systemctl start ssh
+echo -e " -*- Configure ssh ... "
+	sudo systemctl enable ssh &> /dev/null
+	sudo systemctl start ssh &> /dev/null
 echo -e "OK\n"
 
 # Configure I2C.
@@ -67,7 +67,7 @@ echo -e "OK\n"
 echo -e " -*- Remove Auto-Update Service ... "
 	sudo systemctl --now disable apt-daily.timer apt-daily-upgrade.timer &> /dev/null
 	sudo systemctl --now disable apt-daily apt-daily-upgrade &> /dev/null
-	sudo systemctl --now kill apt-daily apt-daily-upgrade
+	sudo systemctl --now kill apt-daily apt-daily-upgrade &> /dev/null
 	# echo "Daemon reload..."
 	sudo systemctl daemon-reload
 	sleep 3
@@ -107,17 +107,17 @@ echo -e "OK\n"
 # Install .NET 5, .NET Core 3.1.
 echo -e " -*- Install Microsoft .NET ... "
 	sudo apt install libunwind8 gettext -y -qq
+	sudo mkdir -p /opt/dotnet
 	
-	curl -o dotnet_5.0.1.tar.gz https://download.visualstudio.microsoft.com/download/pr/46b6dfbf-8da3-4e95-ae33-abd5c875bc3e/566db9b58e809f4ed6d571a1de09fc58/dotnet-runtime-5.0.1-linux-arm.tar.gz &> /dev/nulls
+	curl -o dotnet_5.0.1.tar.gz https://download.visualstudio.microsoft.com/download/pr/46b6dfbf-8da3-4e95-ae33-abd5c875bc3e/566db9b58e809f4ed6d571a1de09fc58/dotnet-runtime-5.0.1-linux-arm.tar.gz
 	sha512sum dotnet_5.0.1.tar.gz > dotnet_5.0.1.tar.gz.sha512
 	sha512sum -c dotnet_5.0.1.tar.gz.sha512 &> /dev/null
 	sudo tar zxf dotnet_5.0.1.tar.gz -C /opt/dotnet
 	rm dotnet_5.0.1.tar.gz dotnet_5.0.1.tar.gz.sha512
 	
-	curl -o dotnet_3.1.10.tar.gz https://download.visualstudio.microsoft.com/download/pr/8261839b-2b61-4c49-a3e4-90b32f25bf50/12ff8ed47c32c199c04066eb07647f4e/dotnet-runtime-3.1.10-linux-arm.tar.gz &> /dev/null
+	curl -o dotnet_3.1.10.tar.gz https://download.visualstudio.microsoft.com/download/pr/8261839b-2b61-4c49-a3e4-90b32f25bf50/12ff8ed47c32c199c04066eb07647f4e/dotnet-runtime-3.1.10-linux-arm.tar.gz
 	sha512sum dotnet_3.1.10.tar.gz > dotnet_3.1.10.tar.gz.sha512
 	sha512sum -c dotnet_3.1.10.tar.gz.sha512 &> /dev/null
-	sudo mkdir -p /opt/dotnet
 	sudo tar zxf dotnet_3.1.10.tar.gz -C /opt/dotnet
 	rm dotnet_3.1.10.tar.gz dotnet_3.1.10.tar.gz.sha512
 	
@@ -128,7 +128,6 @@ echo -e "OK\n"
 # Install Prometheus.
 echo -e "-*- Install Prometheus ... "
   sudo apt install prometheus -y -qq
-  sudo rm /etc/prometheus/prometheus.yml
   prconfig="prometheus.yml"
 	touch $prconfig
 	cat <<- EOF > $prconfig
