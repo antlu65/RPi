@@ -53,11 +53,14 @@ EOF
 	sudo mv -f $tconfig /etc/systemd/system/getty@tty1.service.d/$tconfig
 echo -e " --- OK\n"
 
-# Configure I2C.
-echo -e " -*- Configure i2c ... "
-  sudo -- bash -c 'echo "dtparam=i2c_arm=on" >> /boot/config.txt'
-  sudo modprobe i2c-dev
-  sudo -- bash -c 'echo "i2c-dev" >> /etc/modules'
+# Enable I2c, Disable Bluetooth, Audio, Graphics
+echo -e " -*- Enable Two Wire Interface, Disable Bluetooth, Audio, Graphics ... "
+  	cat <<-EOF > config.txt
+[all]
+dtparam=i2c_arm=on
+dtoverlay=disable-bt
+EOF
+  	sudo mv -f config.txt /boot/config.txt
 echo -e " --- OK\n"
 
 # Enable SSH.
