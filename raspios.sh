@@ -91,8 +91,8 @@ echo -e " --- OK\n"
 # Setup Wifi.
 echo -e " -*- Setup Wifi ... "
 	sudo apt install net-tools wireless-tools wpasupplicant -y -q
-	network="ATT3tf4ur4"
-	netpass="H3nrB1wan9n3t"
+	network="AutomatioCoreNet"
+	netpass="ColonialHeavy3298671"
 	netconfig="wpa_supplicant.conf"	
 	cat <<- EOF > $netconfig
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
