@@ -111,17 +111,17 @@ echo -e " -*- Install Microsoft .NET ... "
     sudo apt install libncurses5 libunwind8 gettext -y -q
     sudo mkdir -p /opt/dotnet
 
-    curl -o dotnet_5.0.7.tar.gz https://download.visualstudio.microsoft.com/download/pr/09a24e9f-0096-454a-b761-70cdf9504775/eafe9578bbedd15c9319b7580d5a20d9/dotnet-runtime-5.0.7-linux-arm.tar.gz
-    sha512sum dotnet_5.0.7.tar.gz > dotnet_5.0.7.tar.gz.sha512
-    sha512sum -c dotnet_5.0.7.tar.gz.sha512
-    sudo tar zxf dotnet_5.0.7.tar.gz -C /opt/dotnet
-    rm dotnet_5.0.7.tar.gz dotnet_5.0.7.tar.gz.sha512
+    curl -o dotnet_5.0.8.tar.gz https://download.visualstudio.microsoft.com/download/pr/06f47628-7e59-4e2a-9002-72d7e11b8cde/79a68d8fc9812b4f94e4f9f32f3acbc8/dotnet-runtime-5.0.8-linux-arm.tar.gz
+    sha512sum dotnet_5.0.8.tar.gz > dotnet_5.0.8.tar.gz.sha512
+    sha512sum -c dotnet_5.0.8.tar.gz.sha512
+    sudo tar zxf dotnet_5.0.8.tar.gz -C /opt/dotnet
+    rm dotnet_5.0.8.tar.gz dotnet_5.0.8.tar.gz.sha512
 
-    curl -o dotnet_3.1.16.tar.gz https://download.visualstudio.microsoft.com/download/pr/018340ba-35e8-46bd-93b7-e30ecc15212d/647fd64b6849c55cf8e380c23dd5c554/dotnet-runtime-3.1.16-linux-arm.tar.gz
-    sha512sum dotnet_3.1.16.tar.gz > dotnet_3.1.16.tar.gz.sha512
-    sha512sum -c dotnet_3.1.16.tar.gz.sha512
-    sudo tar zxf dotnet_3.1.16.tar.gz -C /opt/dotnet
-    rm dotnet_3.1.16.tar.gz dotnet_3.1.16.tar.gz.sha512
+    curl -o dotnet_3.1.17.tar.gz https://download.visualstudio.microsoft.com/download/pr/38a94860-f13c-4d7f-8089-4aaf6e34a4e0/d5dceff2f680b8ae9999de0028d64725/dotnet-runtime-3.1.17-linux-arm.tar.gz
+    sha512sum dotnet_3.1.17.tar.gz > dotnet_3.1.17.tar.gz.sha512
+    sha512sum -c dotnet_3.1.17.tar.gz.sha512
+    sudo tar zxf dotnet_3.1.17.tar.gz -C /opt/dotnet
+    rm dotnet_3.1.17.tar.gz dotnet_3.1.17.tar.gz.sha512
 
     sudo rm /usr/local/bin/dotnet 2> /dev/null
     sudo ln -s /opt/dotnet/dotnet /usr/local/bin
