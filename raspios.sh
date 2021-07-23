@@ -154,6 +154,10 @@ sudo systemctl enable grafana-server
 sudo systemctl start grafana-server
 echo -e " --- OK\n"
 
+# Install Docker.
+echo -e " -*- Install Docker ... "
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo ./get-docker.sh
 
 # Cleanup.
 echo -e " -*- Cleanup ... "
