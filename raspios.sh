@@ -108,7 +108,7 @@ echo -e " --- OK\n"
 
 # Install .NET 5, .NET Core 3.1.
 echo -e " -*- Install Microsoft .NET ... "
-    sudo apt install libncurses5 libunwind8 gettext -y -q
+    sudo apt install libunwind8 gettext -y -q
     sudo mkdir -p /opt/dotnet
 
     curl -o dotnet_5.0.8.tar.gz https://download.visualstudio.microsoft.com/download/pr/06f47628-7e59-4e2a-9002-72d7e11b8cde/79a68d8fc9812b4f94e4f9f32f3acbc8/dotnet-runtime-5.0.8-linux-arm.tar.gz
