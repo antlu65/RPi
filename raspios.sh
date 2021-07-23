@@ -117,11 +117,11 @@ echo -e " -*- Install Microsoft .NET ... "
     sudo tar zxf dotnet_5.0.8.tar.gz -C /opt/dotnet
     rm dotnet_5.0.8.tar.gz dotnet_5.0.8.tar.gz.sha512
 
-    curl -o dotnet_3.1.17.tar.gz https://download.visualstudio.microsoft.com/download/pr/38a94860-f13c-4d7f-8089-4aaf6e34a4e0/d5dceff2f680b8ae9999de0028d64725/dotnet-runtime-3.1.17-linux-arm.tar.gz
-    sha512sum dotnet_3.1.17.tar.gz > dotnet_3.1.17.tar.gz.sha512
-    sha512sum -c dotnet_3.1.17.tar.gz.sha512
-    sudo tar zxf dotnet_3.1.17.tar.gz -C /opt/dotnet
-    rm dotnet_3.1.17.tar.gz dotnet_3.1.17.tar.gz.sha512
+    curl -o aspnetcore_5.0.8.tar.gz https://download.visualstudio.microsoft.com/download/pr/7e928c60-5f60-4c62-8439-422be547605c/0d1dc316cf38efdb2557f639ca9da4ad/aspnetcore-runtime-5.0.8-linux-arm.tar.gz
+    sha512sum aspnetcore_5.0.8.tar.gz > aspnetcore_5.0.8.tar.gz.sha512
+    sha512sum -c aspnetcore_5.0.8.tar.gz.sha512
+    sudo tar zxf aspnetcore_5.0.8.tar.gz -C /opt/dotnet
+    rm aspnetcore_5.0.8.tar.gz aspnetcore_5.0.8.tar.gz.sha512
 
     sudo rm /usr/local/bin/dotnet 2> /dev/null
     sudo ln -s /opt/dotnet/dotnet /usr/local/bin
