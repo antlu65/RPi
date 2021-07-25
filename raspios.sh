@@ -24,9 +24,9 @@ LANGUAGE=en_US.UTF-8
 EOF
     sudo mv -f locale /etc/default/locale
     touch locale.gen
-        cat <<- EOF > locale.gen
-    en_US.UTF-8
-    EOF
+    cat <<- EOF > locale.gen
+en_US.UTF-8
+EOF
     sudo mv -f locale.gen /etc/locale.gen
 echo -e " --- OK\n"
 
