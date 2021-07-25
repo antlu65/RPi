@@ -159,7 +159,7 @@ echo -e " -*- Install Docker ... "
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo chmod +x get-docker.sh
 sudo ./get-docker.sh
-sudo usermod -aG docker pi
+sudo usermod -aG docker $USER
 sudo rm get-docker.sh
 
 # Cleanup.
