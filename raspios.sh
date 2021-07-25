@@ -16,14 +16,18 @@ echo -e " --- OK\n"
 
 # Configure Locale.
 echo -e " -*- Configure Locale ... "
-    lconfig="locale"
-    touch $lconfig
-    cat <<- EOF > $lconfig
+    touch locale
+    cat <<- EOF > locale
 LC_ALL=en_US.UTF-8
 LANG=en_US.UTF-8
 LANGUAGE=en_US.UTF-8
 EOF
-    sudo mv -f $lconfig /etc/default/$lconfig
+    sudo mv -f locale /etc/default/locale
+    touch locale.gen
+        cat <<- EOF > locale.gen
+    en_US.UTF-8
+    EOF
+    sudo mv -f locale.gen /etc/locale.gen
 echo -e " --- OK\n"
 
 # Configure Keyboard.
