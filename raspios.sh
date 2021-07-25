@@ -131,11 +131,13 @@ EOF
     sudo mkdir /etc/prometheus
     sudo mv -f $prconfig /etc/prometheus/$prconfig
 sudo docker pull prom/prometheus
+sudo docker run -d -p 9090:9090 -v /etc/prometheus:/etc/prometheus --restart always prom/prometheus
 echo -e " --- OK\n"
 
 # Setup Grafana.
 echo -e " -*- Setup Grafana ... "
 sudo docker pull grafana/grafana
+sudo docker run -d -p 3000:3000 --restart always grafana/grafana
 echo -e " --- OK\n"
 
 # Cleanup.
