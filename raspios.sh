@@ -106,27 +106,17 @@ EOF
     sudo dhclient wlan0 &
 echo -e " --- OK\n"
 
-# Install Grafana.
-echo -e " -*- Install Grafana ... "
-wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
-echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
-sudo apt update -q
-sudo apt install grafana -y -q
-sudo systemctl enable grafana-server
-sudo systemctl start grafana-server
-echo -e " --- OK\n"
-
 # Install Docker.
 echo -e " -*- Install Docker ... "
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo chmod +x get-docker.sh
 sudo ./get-docker.sh
 sudo rm get-docker.sh
-sudo usermod -aG docker $USER
 sudo docker login --username antlu65 --password ColonialHeavy3298671
+sudo usermod -aG docker pi
 
-# Configure Prometheus.
-echo -e "-*- Install Prometheus ... "
+# Setup Prometheus.
+echo -e "-*- Setup Prometheus ... "
   prconfig="prometheus.yml"
     touch $prconfig
     cat <<- EOF > $prconfig
@@ -138,8 +128,14 @@ scrape_configs:
     static_configs:
     - targets: ['localhost:1234']
 EOF
+    sudo mkdir /etc/prometheus
     sudo mv -f $prconfig /etc/prometheus/$prconfig
 sudo docker pull prom/prometheus
+echo -e " --- OK\n"
+
+# Setup Grafana.
+echo -e " -*- Setup Grafana ... "
+sudo docker pull grafana/grafana
 echo -e " --- OK\n"
 
 # Cleanup.
