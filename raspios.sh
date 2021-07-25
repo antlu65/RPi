@@ -106,44 +106,6 @@ EOF
     sudo dhclient wlan0 &
 echo -e " --- OK\n"
 
-# Install .NET 5, .NET Core 3.1.
-echo -e " -*- Install Microsoft .NET ... "
-    sudo apt install libunwind8 gettext -y -q
-    sudo mkdir -p /opt/dotnet
-
-    curl -o dotnet_5.0.8.tar.gz https://download.visualstudio.microsoft.com/download/pr/06f47628-7e59-4e2a-9002-72d7e11b8cde/79a68d8fc9812b4f94e4f9f32f3acbc8/dotnet-runtime-5.0.8-linux-arm.tar.gz
-    sha512sum dotnet_5.0.8.tar.gz > dotnet_5.0.8.tar.gz.sha512
-    sha512sum -c dotnet_5.0.8.tar.gz.sha512
-    sudo tar zxf dotnet_5.0.8.tar.gz -C /opt/dotnet
-    rm dotnet_5.0.8.tar.gz dotnet_5.0.8.tar.gz.sha512
-
-    curl -o aspnetcore_5.0.8.tar.gz https://download.visualstudio.microsoft.com/download/pr/7e928c60-5f60-4c62-8439-422be547605c/0d1dc316cf38efdb2557f639ca9da4ad/aspnetcore-runtime-5.0.8-linux-arm.tar.gz
-    sha512sum aspnetcore_5.0.8.tar.gz > aspnetcore_5.0.8.tar.gz.sha512
-    sha512sum -c aspnetcore_5.0.8.tar.gz.sha512
-    sudo tar zxf aspnetcore_5.0.8.tar.gz -C /opt/dotnet
-    rm aspnetcore_5.0.8.tar.gz aspnetcore_5.0.8.tar.gz.sha512
-
-    sudo rm /usr/local/bin/dotnet 2> /dev/null
-    sudo ln -s /opt/dotnet/dotnet /usr/local/bin
-echo -e " --- OK\n"
-
-# Install Prometheus.
-echo -e "-*- Install Prometheus ... "
-  sudo apt install prometheus -y -q
-  prconfig="prometheus.yml"
-    touch $prconfig
-    cat <<- EOF > $prconfig
-global:
-  scrape_interval: 5s
-  evaluation_interval: 15s
-scrape_configs:
-  - job_name: prometheus
-    static_configs:
-    - targets: ['localhost:1234']
-EOF
-    sudo mv -f $prconfig /etc/prometheus/$prconfig
-echo -e " --- OK\n"
-
 # Install Grafana.
 echo -e " -*- Install Grafana ... "
 wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -
@@ -159,8 +121,26 @@ echo -e " -*- Install Docker ... "
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo chmod +x get-docker.sh
 sudo ./get-docker.sh
-sudo usermod -aG docker $USER
 sudo rm get-docker.sh
+sudo usermod -aG docker $USER
+sudo docker login --username antlu65 --password ColonialHeavy3298671
+
+# Configure Prometheus.
+echo -e "-*- Install Prometheus ... "
+  prconfig="prometheus.yml"
+    touch $prconfig
+    cat <<- EOF > $prconfig
+global:
+  scrape_interval: 5s
+  evaluation_interval: 15s
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+    - targets: ['localhost:1234']
+EOF
+    sudo mv -f $prconfig /etc/prometheus/$prconfig
+sudo docker pull prom/prometheus
+echo -e " --- OK\n"
 
 # Cleanup.
 echo -e " -*- Cleanup ... "
