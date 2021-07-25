@@ -8,27 +8,26 @@ echo -e " -*- Configure Password ... "
     echo "$user:$pass" | sudo chpasswd
 echo -e " --- OK\n"
 
-
 # Configure Timezone.
 echo -e " -*- Configure Timezone ... "
     sudo rm -f /etc/localtime
     sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
 echo -e " --- OK\n"
 
-
 # Configure Locale.
 echo -e " -*- Configure Locale ... "
     lconfig="locale"
     touch $lconfig
     cat <<- EOF > $lconfig
+LC_ALL=en_US.UTF-8
 LANG=en_US.UTF-8
+LANGUAGE=en_US.UTF-8
 EOF
     sudo mv -f $lconfig /etc/default/$lconfig
 echo -e " --- OK\n"
 
-
 # Configure Keyboard.
-echo -e "-*- Configure Keyboard ... "
+echo -e " -*- Configure Keyboard ... "
     kbconfig="keyboard"
     touch $kbconfig
     cat <<- EOF > $kbconfig
@@ -42,7 +41,7 @@ EOF
 echo -e " --- OK\n"
 
 # Configure Terminal.
-echo -e "-*- Configure Terminal ... "
+echo -e " -*- Configure Terminal ... "
     tconfig=override.conf
     rootusername=pi
     cat <<-EOF > $tconfig
@@ -114,6 +113,7 @@ sudo ./get-docker.sh
 sudo rm get-docker.sh
 sudo docker login --username antlu65 --password ColonialHeavy3298671
 sudo usermod -aG docker pi
+echo -e " --- OK\n"
 
 # Setup Prometheus.
 echo -e "-*- Setup Prometheus ... "
@@ -131,13 +131,11 @@ EOF
     sudo mkdir /etc/prometheus
     sudo mv -f $prconfig /etc/prometheus/$prconfig
 sudo docker pull prom/prometheus
-sudo docker run -d -p 9090:9090 -v /etc/prometheus:/etc/prometheus --restart always prom/prometheus
 echo -e " --- OK\n"
 
 # Setup Grafana.
 echo -e " -*- Setup Grafana ... "
 sudo docker pull grafana/grafana
-sudo docker run -d -p 3000:3000 --restart always grafana/grafana
 echo -e " --- OK\n"
 
 # Cleanup.
@@ -145,6 +143,12 @@ echo -e " -*- Cleanup ... "
     sudo apt remove raspi-config -y -q
     sudo apt autoremove -y -q
     rm raspios.sh
+echo -e " --- OK\n"
+
+# Run Docker Images.
+echo -e " -*- Run Docker Images ... "
+sudo docker run -d -p 9090:9090 -v /etc/prometheus:/etc/prometheus --restart always prom/prometheus
+sudo docker run -d -p 3000:3000 --restart always grafana/grafana
 echo -e " --- OK\n"
 
 # Reboot.
