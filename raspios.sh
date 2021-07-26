@@ -159,11 +159,11 @@ echo -e " --- OK\n"
 # Run Docker Images.
 echo -e " -*- Start Docker Containers ... "
 echo -e "Prometheus:"
-sudo docker run -d -p 9090:9090 -v /etc/prometheus:/etc/prometheus --restart always --rm prom/prometheus
+sudo docker run -d -p 9090:9090 -v /etc/prometheus:/etc/prometheus --restart always prom/prometheus
 echo -e "Grafana:"
-sudo docker run -d -p 3000:3000 --restart always --rm grafana/grafana
+sudo docker run -d -p 3000:3000 --restart always grafana/grafana
 echo -e "ACServer"
-sudo docker run -d -p 5001:443 -p 5000:80 -p 1883:1883 -p 1234:1234 --restart always --rm antlu65/acserver
+sudo docker run -d -p 5001:443 -p 5000:80 -p 1883:1883 -p 1234:1234 --restart always antlu65/acserver
 echo -e " --- OK\n"
 
 # Reboot.
