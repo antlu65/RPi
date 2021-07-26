@@ -138,6 +138,7 @@ global:
   evaluation_interval: 15s
 scrape_configs:
   - job_name: prometheus
+    scheme: https
     static_configs:
     - targets: ['localhost:5001']
 EOF
