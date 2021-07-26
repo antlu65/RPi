@@ -139,7 +139,7 @@ global:
 scrape_configs:
   - job_name: prometheus
     static_configs:
-    - targets: ['localhost:1234']
+    - targets: ['localhost:5001']
 EOF
     sudo mkdir /etc/prometheus
     sudo mv -f $prconfig /etc/prometheus/$prconfig
@@ -163,7 +163,7 @@ sudo docker run -d -p 9090:9090 -v /etc/prometheus:/etc/prometheus --restart alw
 echo -e "Grafana:"
 sudo docker run -d -p 3000:3000 --restart always grafana/grafana
 echo -e "ACServer"
-sudo docker run -d -p 5001:443 -p 5000:80 -p 1883:1883 -p 1234:1234 --restart always antlu65/acserver
+sudo docker run -d -p 5001:5001 -p 5000:5000 -p 1883:1883 --restart always antlu65/acserver
 echo -e " --- OK\n"
 
 # Reboot.
