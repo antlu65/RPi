@@ -119,8 +119,17 @@ sudo docker login --username antlu65 --password ColonialHeavy3298671
 sudo usermod -aG docker pi
 echo -e " --- OK\n"
 
+# Cleanup.
+echo -e " -*- Cleanup ... "
+    sudo apt remove raspi-config -y -q
+    sudo apt autoremove -y -q
+    rm raspios.sh
+echo -e " --- OK\n"
+
+
+
 # Setup Prometheus.
-echo -e "-*- Setup Prometheus ... "
+echo -e " -*- Setup Prometheus ... "
   prconfig="prometheus.yml"
     touch $prconfig
     cat <<- EOF > $prconfig
@@ -142,15 +151,13 @@ echo -e " -*- Setup Grafana ... "
 sudo docker pull grafana/grafana
 echo -e " --- OK\n"
 
-# Cleanup.
-echo -e " -*- Cleanup ... "
-    sudo apt remove raspi-config -y -q
-    sudo apt autoremove -y -q
-    rm raspios.sh
+# Setup ACServer.
+echo -e " -*- Setup ACServer ... "
+sudo docker pull antlu65/acserver
 echo -e " --- OK\n"
 
 # Run Docker Images.
-echo -e " -*- Run Docker Images ... "
+echo -e " -*- Start Docker Containers ... "
 echo -e "Prometheus:"
 sudo docker run -d -p 9090:9090 -v /etc/prometheus:/etc/prometheus --restart always prom/prometheus
 echo -e "Grafana:"
