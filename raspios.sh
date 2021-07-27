@@ -1,5 +1,7 @@
 #!/bin/bash
-echo -e "\n ---***--- Raspberry Pi OS (32bit) Setup\n"
+echo -e "\n ---***--- Raspberry Pi OS Setup\n"
+
+githubrepo = https://raw.githubusercontent.com/antlu65/rpi/master
 
 # Configure Password.
 echo -e " -*- Configure Password ... "
@@ -130,41 +132,30 @@ echo -e " --- OK\n"
 
 # Setup Prometheus.
 echo -e " -*- Setup Prometheus ... "
-  prconfig="prometheus.yml"
-    touch $prconfig
-    cat <<- EOF > $prconfig
-global:
-  scrape_interval: 5s
-  evaluation_interval: 15s
-scrape_configs:
-  - job_name: prometheus
-    scheme: https
-    static_configs:
-    - targets: ['localhost:5001']
-EOF
+    curl -o prometheus.yml $githubrepo/prometheus.yml
     sudo mkdir /etc/prometheus
-    sudo mv -f $prconfig /etc/prometheus/$prconfig
-sudo docker pull prom/prometheus
+    sudo mv -f prometheus.yml /etc/prometheus/prometheus.yml
+    sudo docker pull prom/prometheus
 echo -e " --- OK\n"
 
 # Setup Grafana.
 echo -e " -*- Setup Grafana ... "
-sudo docker pull grafana/grafana
+    sudo docker pull grafana/grafana
 echo -e " --- OK\n"
 
 # Setup ACServer.
 echo -e " -*- Setup ACServer ... "
-sudo docker pull antlu65/acserver
+    sudo docker pull antlu65/acserver
 echo -e " --- OK\n"
 
 # Run Docker Images.
 echo -e " -*- Start Docker Containers ... "
 echo -e "Prometheus:"
-sudo docker run -d -p 9090:9090 -v /etc/prometheus:/etc/prometheus --restart always prom/prometheus
+sudo docker run --name prometheus -d -p 9090:9090 -v /etc/prometheus:/etc/prometheus --restart always prom/prometheus
 echo -e "Grafana:"
-sudo docker run -d -p 3000:3000 --restart always grafana/grafana
+sudo docker run --name grafana -d -p 3000:3000 --restart always grafana/grafana
 echo -e "ACServer"
-sudo docker run -d -p 5001:5001 -p 5000:5000 -p 1883:1883 --restart always antlu65/acserver
+sudo docker run --name acserver -d -p 5001:5001 -p 5000:5000 -p 1883:1883 --restart always antlu65/acserver
 echo -e " --- OK\n"
 
 # Reboot.
