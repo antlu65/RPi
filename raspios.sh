@@ -1,7 +1,8 @@
 #!/bin/bash
 echo -e "\n ---***--- Raspberry Pi OS Setup\n"
 
-githubrepo = https://raw.githubusercontent.com/antlu65/rpi/master
+githubrepo=https://raw.githubusercontent.com/antlu65/rpi/master
+echo -e "Using repo: $githubrepo\n"
 
 # Configure Password.
 echo -e " -*- Configure Password ... "
@@ -111,6 +112,13 @@ EOF
     sudo dhclient wlan0 &
 echo -e " --- OK\n"
 
+# Cleanup.
+echo -e " -*- Cleanup ... "
+    sudo apt remove raspi-config -y -q
+    sudo apt autoremove -y -q
+    rm raspios.sh
+echo -e " --- OK\n"
+
 # Install Docker.
 echo -e " -*- Install Docker ... "
 curl -fsSL https://get.docker.com -o get-docker.sh
@@ -121,25 +129,18 @@ sudo docker login --username antlu65 --password ColonialHeavy3298671
 sudo usermod -aG docker pi
 echo -e " --- OK\n"
 
-# Cleanup.
-echo -e " -*- Cleanup ... "
-    sudo apt remove raspi-config -y -q
-    sudo apt autoremove -y -q
-    rm raspios.sh
-echo -e " --- OK\n"
-
-
-
 # Setup Prometheus.
 echo -e " -*- Setup Prometheus ... "
     curl -o prometheus.yml $githubrepo/prometheus.yml
     sudo mkdir /etc/prometheus
+    sudo mkdir /prometheus
     sudo mv -f prometheus.yml /etc/prometheus/prometheus.yml
     sudo docker pull prom/prometheus
 echo -e " --- OK\n"
 
 # Setup Grafana.
 echo -e " -*- Setup Grafana ... "
+    sudo mkdir /grafana
     sudo docker pull grafana/grafana
 echo -e " --- OK\n"
 
@@ -150,12 +151,35 @@ echo -e " --- OK\n"
 
 # Run Docker Images.
 echo -e " -*- Start Docker Containers ... "
+echo -e "Network:"
+network=acserver-net
+sudo docker network create $network
 echo -e "Prometheus:"
-sudo docker run --name prometheus -d -p 9090:9090 -v /etc/prometheus:/etc/prometheus --restart always prom/prometheus
+sudo docker run \
+    --name prometheus -d \
+    -p 9090:9090 \
+    -v /etc/prometheus:/etc/prometheus \
+    -v /prometheus:/prometheus \
+    --network $network \
+    --restart always \
+    prom/prometheus
 echo -e "Grafana:"
-sudo docker run --name grafana -d -p 3000:3000 --restart always grafana/grafana
+sudo docker run \
+    --name grafana -d \
+    -p 3000:3000 \
+    -v /grafana:/etc/grafana/provisioning/datasources \
+    --network $network \
+    --restart always \
+    grafana/grafana
 echo -e "ACServer"
-sudo docker run --name acserver -d -p 5001:5001 -p 5000:5000 -p 1883:1883 --restart always antlu65/acserver
+sudo docker run \
+    --name acserver -d \
+    -p 5001:5001 \
+    -p 5000:5000 \
+    -p 1883:1883 \
+    --network $network \
+    --restart always \
+    antlu65/acserver
 echo -e " --- OK\n"
 
 # Reboot.
