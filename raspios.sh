@@ -90,13 +90,13 @@ echo -e " --- OK\n"
 
 # Upgrade Default Packages.
 echo -e " -*- Upgrade Default Packages ... "
-    sudo apt update -q
-    sudo apt upgrade -y -q
+    sudo apt update -qq
+    sudo apt upgrade -y -qq
 echo -e " --- OK\n"
 
 # Setup Wifi.
 echo -e " -*- Setup Wifi ... "
-    sudo apt install net-tools wireless-tools wpasupplicant -y -q
+    sudo apt install net-tools wireless-tools wpasupplicant -y -qq
     network="AutoCoreNet"
     netpass="ColonialHeavy3298671"
     netconfig="wpa_supplicant.conf"	
@@ -114,8 +114,8 @@ echo -e " --- OK\n"
 
 # Cleanup.
 echo -e " -*- Cleanup ... "
-    sudo apt remove raspi-config -y -q
-    sudo apt autoremove -y -q
+    sudo apt remove raspi-config -y -qq
+    sudo apt autoremove -y -qq
     rm raspios.sh
 echo -e " --- OK\n"
 
@@ -127,6 +127,12 @@ sudo ./get-docker.sh
 sudo rm get-docker.sh
 sudo docker login --username antlu65 --password ColonialHeavy3298671
 sudo usermod -aG docker pi
+echo -e " --- OK\n"
+
+# Install Python.
+echo -e " -*- Install Python and Docker Compose ... "
+  sudo apt install python3 python3-pip libffi-dev libssl-dev -y -qq
+  sudo pip3 install docker-compose -qq
 echo -e " --- OK\n"
 
 # Setup Prometheus.
