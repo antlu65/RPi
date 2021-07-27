@@ -133,8 +133,9 @@ echo -e " --- OK\n"
 echo -e " -*- Setup Prometheus ... "
     curl -o prometheus.yml $githubrepo/prometheus.yml
     sudo mkdir /etc/prometheus
-    sudo mkdir /prometheus
     sudo mv -f prometheus.yml /etc/prometheus/prometheus.yml
+    sudo mkdir /prometheus
+    sudo chmod o+rw /prometheus
     sudo docker pull prom/prometheus
 echo -e " --- OK\n"
 
@@ -155,8 +156,8 @@ echo -e "Network:"
 network=acserver-net
 sudo docker network create $network
 echo -e "Prometheus:"
-sudo docker run \
-    --name prometheus -d \
+sudo docker run -d \
+    --name prometheus \
     -p 9090:9090 \
     -v /etc/prometheus:/etc/prometheus \
     -v /prometheus:/prometheus \
@@ -164,16 +165,16 @@ sudo docker run \
     --restart always \
     prom/prometheus
 echo -e "Grafana:"
-sudo docker run \
-    --name grafana -d \
+sudo docker run -d \
+    --name grafana \
     -p 3000:3000 \
     -v /grafana:/etc/grafana/provisioning/datasources \
     --network $network \
     --restart always \
     grafana/grafana
 echo -e "ACServer"
-sudo docker run \
-    --name acserver -d \
+sudo docker run -d \
+    --name acserver \
     -p 5001:5001 \
     -p 5000:5000 \
     -p 1883:1883 \
