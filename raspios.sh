@@ -158,35 +158,10 @@ echo -e " --- OK\n"
 
 # Run Docker Images.
 echo -e " -*- Start Docker Containers ... "
-echo -e "Network:"
-network=acserver-net
-sudo docker network create $network
-echo -e "Prometheus:"
-sudo docker run -d \
-    --name prometheus \
-    -p 9090:9090 \
-    -v /etc/prometheus:/etc/prometheus \
-    -v /prometheus:/prometheus \
-    --network $network \
-    --restart always \
-    prom/prometheus
-echo -e "Grafana:"
-sudo docker run -d \
-    --name grafana \
-    -p 3000:3000 \
-    -v /grafana:/etc/grafana/provisioning/datasources \
-    --network $network \
-    --restart always \
-    grafana/grafana
-echo -e "ACServer"
-sudo docker run -d \
-    --name acserver \
-    -p 5001:5001 \
-    -p 5000:5000 \
-    -p 1883:1883 \
-    --network $network \
-    --restart always \
-    antlu65/acserver
+    docker-compose \
+      -p acserver \
+      -f docker-compose.yml \
+      up -d
 echo -e " --- OK\n"
 
 # Reboot.
