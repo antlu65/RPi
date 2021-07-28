@@ -130,9 +130,9 @@ sudo usermod -aG docker pi
 echo -e " --- OK\n"
 
 # Install Python.
-#echo -e " -*- Install Python and Docker Compose ... "
-#  sudo apt install python3 python3-pip libffi-dev libssl-dev -y -qq
-#  sudo pip3 install docker-compose -qq
+echo -e " -*- Install Python and Docker Compose ... "
+    sudo apt install python3 python3-pip libffi-dev libssl-dev -y -qq
+    sudo pip3 install docker-compose -qq
 #echo -e " --- OK\n"
 
 # Setup Prometheus.
@@ -158,10 +158,10 @@ echo -e " --- OK\n"
 
 # Run Docker Images.
 echo -e " -*- Start Docker Containers ... "
-#    docker-compose \
-#      -p acserver \
-#      -f docker-compose.yml \
-#      up -d
+    docker-compose \
+      -p acserver \
+      -f docker-compose.yml \
+      up -d
 echo -e " --- OK\n"
 
 # Reboot.
