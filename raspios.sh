@@ -121,12 +121,13 @@ echo -e " --- OK\n"
 
 # Install Docker.
 echo -e " -*- Install Docker ... "
-curl -fsSL https://get.docker.com -o get-docker.sh
-sudo chmod +x get-docker.sh
-sudo ./get-docker.sh
-sudo rm get-docker.sh
-sudo docker login --username antlu65 --password ColonialHeavy3298671
-sudo usermod -aG docker pi
+    curl -fsSL https://get.docker.com -o get-docker.sh
+    sudo chmod +x get-docker.sh
+    sudo ./get-docker.sh
+    sudo rm get-docker.sh
+    sudo docker login --username antlu65 --password ColonialHeavy3298671
+    sudo usermod -aG docker pi
+    sudo curl -o /etc/docker/daemon.json $githubrepo/daemon.json
 echo -e " --- OK\n"
 
 # Install Python.
