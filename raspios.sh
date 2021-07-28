@@ -127,7 +127,6 @@ echo -e " -*- Install Docker ... "
     sudo rm get-docker.sh
     sudo docker login --username antlu65 --password ColonialHeavy3298671
     sudo usermod -aG docker pi
-    #sudo curl -o /etc/docker/daemon.json $githubrepo/daemon.json
 echo -e " --- OK\n"
 
 # Install Python.

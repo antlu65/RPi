@@ -7,8 +7,6 @@ services:
       - 5001:5001
       - 5000:5000
       - 1883:1883
-    networks:
-      - default
     restart: always
   prometheus:
     image: prom/prometheus
@@ -18,9 +16,6 @@ services:
     volumes:
       - /etc/prometheus:/etc/prometheus
       - /prometheus:/prometheus
-    networks:
-      - default
-      - host
     restart: always
   grafana:
     image: grafana/grafana
@@ -29,13 +24,9 @@ services:
       - 3000:3000
     volumes:
       - /grafana:/etc/grafana/provisioning/datasources
-    networks:
-      - default
     restart: always
 volumes:
   prometheus:
 networks:
   default:
     name: acserver
-  host:
-    name: host
