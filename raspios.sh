@@ -137,9 +137,8 @@ echo -e " -*- Install Python and Docker Compose ... "
 
 # Setup Prometheus.
 echo -e " -*- Setup Prometheus ... "
-    curl -o prometheus.yml $githubrepo/prometheus.yml
     sudo mkdir /etc/prometheus
-    sudo mv -f prometheus.yml /etc/prometheus/prometheus.yml
+    sudo curl -o /etc/prometheus/prometheus.yml $githubrepo/prometheus.yml
     sudo mkdir /prometheus
     sudo chmod o+rw /prometheus
     sudo docker pull prom/prometheus
