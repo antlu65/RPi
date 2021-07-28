@@ -158,6 +158,7 @@ echo -e " --- OK\n"
 
 # Run Docker Images.
 echo -e " -*- Start Docker Containers ... "
+    curl -o docker-compose.yml $githubrepo/docker-compose.yml
     docker-compose \
       -p acserver \
       -f docker-compose.yml \
