@@ -1,0 +1,29 @@
+﻿version: "3.9"
+services:
+  acserver:
+    image: antlu65/acserver
+    container_name: acserver
+    ports:
+      - 5001:5001
+      - 5000:5000
+      - 1883:1883
+    restart: unless-stopped
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - /etc/prometheus:/etc/prometheus
+      - /prometheus:/prometheus
+    restart: unless-stopped
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+    volumes:
+      - /grafana:/etc/grafana/provisioning/datasources
+    restart: unless-stopped
+volumes:
+  prometheus:
