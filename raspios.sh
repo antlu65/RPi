@@ -174,5 +174,6 @@ echo -e " --- OK\n"
 
 # Reboot.
 echo -e " ---***--- Setup Complete. Rebooting ... "
+sudo docker ps
 sleep 5
 sudo shutdown -r now
