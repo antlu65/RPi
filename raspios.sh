@@ -122,7 +122,7 @@ echo -e " -*- Install Docker ... "
     sudo docker login --username antlu65 --password ColonialHeavy3298671
     sudo usermod -aG docker pi
 echo -e " --- OK\n"
-
+sleep 3
 
 # Install Python.
 echo -e " -*- Install Python and Docker Compose ... "
