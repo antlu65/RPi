@@ -112,12 +112,6 @@ EOF
     sudo dhclient wlan0 &
 echo -e " --- OK\n"
 
-# Cleanup.
-echo -e " -*- Cleanup ... "
-    sudo apt remove raspi-config -y -qq
-    sudo apt autoremove -y -qq
-    rm raspios.sh
-echo -e " --- OK\n"
 
 # Install Docker.
 echo -e " -*- Install Docker ... "
@@ -129,11 +123,20 @@ echo -e " -*- Install Docker ... "
     sudo usermod -aG docker pi
 echo -e " --- OK\n"
 
+
 # Install Python.
 echo -e " -*- Install Python and Docker Compose ... "
-    sudo apt install python3 python3-pip libffi-dev libssl-dev -y -qq
-    sudo pip3 install docker-compose -qq
+    sudo apt install python3 python3-pip libffi-dev libssl-dev -y -q
+    sudo pip3 install docker-compose -q
 #echo -e " --- OK\n"
+
+
+# Cleanup.
+echo -e " -*- Cleanup ... "
+    sudo apt remove raspi-config -y -qq
+    sudo apt autoremove -y -qq
+    rm raspios.sh
+echo -e " --- OK\n"
 
 # Setup Prometheus.
 echo -e " -*- Setup Prometheus ... "
