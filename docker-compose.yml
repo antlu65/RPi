@@ -25,6 +25,14 @@ services:
     volumes:
       - /grafana:/etc/grafana/provisioning/datasources
     restart: always
+  docker_exporter:
+    image: antlu65/docker_exporter
+    container_name: docker_exporter
+    ports:
+      - 9417:9417
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
 volumes:
   prometheus:
 networks:
