@@ -23,7 +23,8 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - /grafana:/etc/grafana/provisioning/datasources
+      - /grafana/provisioning:/etc/grafana/provisioning
+      - /grafana/lib:/var/lib/grafana
     restart: always
   docker_exporter:
     image: antlu65/docker_exporter

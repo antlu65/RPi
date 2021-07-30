@@ -140,14 +140,20 @@ echo -e " -*- Setup Prometheus ... "
     sudo mkdir /etc/prometheus
     sudo curl -o /etc/prometheus/prometheus.yml $githubrepo/prometheus.yml
     sudo mkdir /prometheus
-    sudo chmod o+rw /prometheus
+    sudo chmod -R go+rw /prometheus
     sudo docker pull prom/prometheus
 echo -e " --- OK\n"
 
 # Setup Grafana.
 echo -e " -*- Setup Grafana ... "
     sudo mkdir /grafana
+    sudo chmod -R go+rw /grafana
     sudo docker pull grafana/grafana
+echo -e " --- OK\n"
+
+# Setup docker_exporter
+echo -e " -*- Setup docker_exporter ... "
+    sudo docker pull antlu65/docker_exporter
 echo -e " --- OK\n"
 
 # Setup ACServer.
@@ -160,7 +166,6 @@ echo -e " -*- Start Docker Containers ... "
     curl -o docker-compose.yml $githubrepo/docker-compose.yml
     docker-compose \
       -p acserver \
-      -f docker-compose.yml \
       up -d
 echo -e " --- OK\n"
 
