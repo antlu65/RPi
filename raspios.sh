@@ -110,33 +110,6 @@ echo -e " -*- Install Python and Docker Compose ... "
     sudo pip3 install docker-compose -q
 echo -e " --- OK\n"
 
-# Upgrade Default Packages.
-echo -e " -*- Upgrade Default Packages ... "
-    sudo apt update -qq
-    sudo apt upgrade -y -qq
-echo -e " --- OK\n"
-
-# Remove Auto-Update Service.
-echo -e " -*- Remove Auto-Update Service ... "
-    sudo systemctl --now disable apt-daily.timer apt-daily-upgrade.timer
-    sudo systemctl --now disable apt-daily apt-daily-upgrade
-    sudo systemctl --now kill apt-daily apt-daily-upgrade
-    sudo systemctl daemon-reload
-    sleep 3
-    sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock*
-    sleep 3
-    sudo dpkg --configure -a
-    sleep 3
-echo -e " --- OK\n"
-
-# Cleanup.
-echo -e " -*- Cleanup ... "
-    sudo apt remove raspi-config -y -qq
-    sudo apt autoremove -y -qq
-    rm raspios.sh
-echo -e " --- OK\n"
-
-
 # Setup Prometheus.
 echo -e " -*- Setup Prometheus ... "
     sudo mkdir /etc/prometheus
@@ -169,6 +142,32 @@ echo -e " -*- Start ACServer Stack ... "
     docker-compose \
       -p acserver \
       up -d
+echo -e " --- OK\n"
+
+# Upgrade Default Packages.
+echo -e " -*- Upgrade Default Packages ... "
+    sudo apt update -qq
+    sudo apt upgrade -y -qq
+echo -e " --- OK\n"
+
+# Remove Auto-Update Service.
+echo -e " -*- Remove Auto-Update Service ... "
+    sudo systemctl --now disable apt-daily.timer apt-daily-upgrade.timer
+    sudo systemctl --now disable apt-daily apt-daily-upgrade
+    sudo systemctl --now kill apt-daily apt-daily-upgrade
+    sudo systemctl daemon-reload
+    sleep 3
+    sudo rm /var/lib/apt/lists/lock /var/cache/apt/archives/lock /var/lib/dpkg/lock*
+    sleep 3
+    sudo dpkg --configure -a
+    sleep 3
+echo -e " --- OK\n"
+
+# Cleanup.
+echo -e " -*- Cleanup ... "
+    sudo apt remove raspi-config -y -qq
+    sudo apt autoremove -y -qq
+    rm raspios.sh
 echo -e " --- OK\n"
 
 # Reboot.
