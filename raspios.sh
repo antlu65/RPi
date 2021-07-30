@@ -161,8 +161,8 @@ echo -e " -*- Setup ACServer ... "
     sudo docker pull antlu65/acserver
 echo -e " --- OK\n"
 
-# Run Docker Images.
-echo -e " -*- Start Docker Containers ... "
+# Run ACServer Stack.
+echo -e " -*- Start ACServer Stack ... "
     curl -o docker-compose.yml $githubrepo/docker-compose.yml
     docker-compose \
       -p acserver \
