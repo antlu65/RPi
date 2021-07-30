@@ -123,7 +123,11 @@ echo -e " --- OK\n"
 echo -e " -*- Setup Grafana ... "
     sudo mkdir /grafana
     sudo mkdir /grafana/lib
+    sudo mkdir /grafana/lib/plugins
     sudo mkdir /grafana/provisioning
+    sudo mkdir /grafana/provisioning/datasources
+    sudo mkdir /grafana/provisioning/plugins
+    sudo mkdir /grafana/provisioning/notifiers
     sudo chmod -R go+rw /grafana
     sudo docker pull grafana/grafana
 echo -e " --- OK\n"
