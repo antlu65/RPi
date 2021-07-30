@@ -75,7 +75,6 @@ echo -e " -*- Enable ssh ... "
     sudo systemctl start ssh
 echo -e " --- OK\n"
 
-
 # Setup Wifi.
 echo -e " -*- Setup Wifi ... "
     sudo apt install net-tools wireless-tools wpasupplicant -y -qq
@@ -109,7 +108,7 @@ sleep 3
 echo -e " -*- Install Python and Docker Compose ... "
     sudo apt install python3 python3-pip libffi-dev libssl-dev -y -q
     sudo pip3 install docker-compose -q
-#echo -e " --- OK\n"
+echo -e " --- OK\n"
 
 # Upgrade Default Packages.
 echo -e " -*- Upgrade Default Packages ... "
