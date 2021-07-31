@@ -137,6 +137,16 @@ echo -e " -*- Setup docker_exporter ... "
     sudo docker pull antlu65/docker_exporter
 echo -e " --- OK\n"
 
+# Setup MongoDB
+echo -e " -*- Setup MongoDB ... "
+    sudo mkdir /mongo
+    sudo mkdir /mongo/db
+    sudo mkdir /mongo/configdb
+    sudo chmod -r go+rw /mongo
+    sudo docker pull mongo:4.4-rc
+    sudo docker pull mongo-express
+echo -e " --- OK\n"
+
 # Setup ACServer.
 echo -e " -*- Setup ACServer ... "
     sudo docker pull antlu65/acserver
