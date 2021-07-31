@@ -99,7 +99,7 @@ echo -e " -*- Install Docker ... "
     sudo chmod +x get-docker.sh
     sudo ./get-docker.sh
     sudo rm get-docker.sh
-    sudo docker login --username antlu65 --password ColonialHeavy3298671
+    echo ColonialHeavy3298671 | sudo docker login --username antlu65 --password-stdin
     sudo usermod -aG docker pi
 echo -e " --- OK\n"
 sleep 3
