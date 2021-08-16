@@ -35,7 +35,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: always
   mongo:
-    image: mongo:4.4-rc
+    image: mongo:4.4
     container_name: mongo
     ports:
       - 27017:27017
