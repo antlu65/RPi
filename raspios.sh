@@ -101,6 +101,7 @@ echo -e " -*- Install Docker ... "
     sudo rm get-docker.sh
     echo ColonialHeavy3298671 | sudo docker login --username antlu65 --password-stdin
     sudo usermod -aG docker pi
+    sudo curl -o /etc/docker/daemon.json $githubrepo/daemon.json
 echo -e " --- OK\n"
 sleep 3
 
@@ -133,19 +134,19 @@ echo -e " -*- Setup Grafana ... "
 echo -e " --- OK\n"
 
 # Setup docker_exporter
-echo -e " -*- Setup docker_exporter ... "
-    sudo docker pull antlu65/docker_exporter
-echo -e " --- OK\n"
+#echo -e " -*- Setup docker_exporter ... "
+#    sudo docker pull antlu65/docker_exporter
+#echo -e " --- OK\n"
 
 # Setup MongoDB
-echo -e " -*- Setup MongoDB ... "
-    sudo mkdir /mongo
-    sudo mkdir /mongo/db
-    sudo mkdir /mongo/configdb
-    sudo chmod -R go+rw /mongo
-    sudo docker pull mongo:4.4-rc
-    sudo docker pull mongo-express
-echo -e " --- OK\n"
+#echo -e " -*- Setup MongoDB ... "
+#    sudo mkdir /mongo
+#    sudo mkdir /mongo/db
+#    sudo mkdir /mongo/configdb
+#    sudo chmod -R go+rw /mongo
+#    sudo docker pull mongo:4.4
+#    sudo docker pull mongo-express
+#echo -e " --- OK\n"
 
 # Setup ACServer.
 echo -e " -*- Setup ACServer ... "

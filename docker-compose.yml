@@ -8,15 +8,6 @@ services:
       - 5000:5000
       - 1883:1883
     restart: always
-  prometheus:
-    image: prom/prometheus
-    container_name: prometheus
-    ports:
-      - 9090:9090
-    volumes:
-      - /etc/prometheus:/etc/prometheus
-      - /prometheus:/prometheus
-    restart: always
   grafana:
     image: grafana/grafana
     container_name: grafana
@@ -26,31 +17,40 @@ services:
       - /grafana/provisioning:/etc/grafana/provisioning
       - /grafana/lib:/var/lib/grafana
     restart: always
-  docker_exporter:
-    image: antlu65/docker_exporter
-    container_name: docker_exporter
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
     ports:
-      - 9417:9417
+      - 9090:9090
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/prometheus:/etc/prometheus
+      - /prometheus:/prometheus
     restart: always
-  mongo:
-    image: mongo:4.4
-    container_name: mongo
-    ports:
-      - 27017:27017
-    volumes:
-      - /mongo/db:/data/db
-      - /mongo/configdb:/data/configdb
-    restart: always
-  mongo-express:
-    image: mongo-express
-    container_name: mongo-express
-    ports:
-      - 8081:8081
-    restart: always
-    depends_on:
-      - mongo
+# docker_exporter:
+#   image: antlu65/docker_exporter
+#   container_name: docker_exporter
+#   ports:
+#     - 9417:9417
+#   volumes:
+#     - /var/run/docker.sock:/var/run/docker.sock
+#   restart: always
+# mongo:
+#   image: mongo:4.4
+#   container_name: mongo
+#   ports:
+#     - 27017:27017
+#   volumes:
+#     - /mongo/db:/data/db
+#     - /mongo/configdb:/data/configdb
+#   restart: always
+# mongo-express:
+#   image: mongo-express
+#   container_name: mongo-express
+#   ports:
+#     - 8081:8081
+#   restart: always
+#   depends_on:
+#     - mongo
 networks:
   default:
     name: acserver
