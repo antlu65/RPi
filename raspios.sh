@@ -101,7 +101,6 @@ echo -e " -*- Install Docker ... "
     sudo rm get-docker.sh
     echo ColonialHeavy3298671 | sudo docker login --username antlu65 --password-stdin
     sudo usermod -aG docker pi
-    sudo curl -o /etc/docker/daemon.json $githubrepo/daemon.json
 echo -e " --- OK\n"
 sleep 3
 
