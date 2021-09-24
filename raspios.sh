@@ -132,6 +132,12 @@ echo -e " -*- Setup Grafana ... "
     sudo docker pull grafana/grafana
 echo -e " --- OK\n"
 
+# Setup InfluxDb.
+echo -e " -*- Setup InfluxDB ... "
+    sudo mkdir /influxdb
+    sudo docker pull influxdb:alpine
+echo -e " --- OK\n"
+
 # Setup docker_exporter
 #echo -e " -*- Setup docker_exporter ... "
 #    sudo docker pull antlu65/docker_exporter

@@ -17,6 +17,14 @@ services:
       - /grafana/provisioning:/etc/grafana/provisioning
       - /grafana/lib:/var/lib/grafana
     restart: always
+  influxdb:
+    image: influxdb:alpine
+    container_name: influxdb
+    ports:
+      - 8086:8086
+    volumes:
+      - /influxdb:/root/.influxdbv2
+    restart: always
   prometheus:
     image: prom/prometheus
     container_name: prometheus
