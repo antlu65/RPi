@@ -25,6 +25,15 @@ services:
     volumes:
       - /influxdb:/root/.influxdbv2
       - /influxdb:/var/lib/influxdb2
+      - /influxdb/influxdb.conf:/etc/influxdb/influxdb.conf
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=acserver
+      - DOCKER_INFLUXDB_INIT_PASSWORD=ColonialHeavy3298671
+      - DOCKER_INFLUXDB_INIT_ORG=defaultOrg
+      - DOCKER_INFLUXDB_INIT_BUCKET=defaultBucket
+      - DOCKER_INFLUXDB_INIT_RETENTION=1w
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=adminToken
     restart: always
   prometheus:
     image: prom/prometheus
