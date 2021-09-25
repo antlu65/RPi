@@ -135,6 +135,7 @@ echo -e " --- OK\n"
 # Setup InfluxDb.
 echo -e " -*- Setup InfluxDB ... "
     sudo mkdir /influxdb
+    sudo curl -o /influxdb/influxdb.conf $githubrepo/influxdb.conf
     sudo chmod -R go+rw /influxdb
     sudo docker pull influxdb:alpine
 echo -e " --- OK\n"
